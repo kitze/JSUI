@@ -1,3 +1,12 @@
+### 🙋‍♂️ Made by [@thekitze](https://twitter.com/thekitze)  
+
+### Other projects:
+- 🏫 [React Academy](https://reactacademy.io) - Interactive React and GraphQL workshops
+- 💌 [Twizzy](https://twizzy.app) - A standalone app for Twitter DM
+- 💻 [Sizzy](https://sizzy.co) - A tool for testing responsive design on multiple devices at once
+
+--- 
+
 # JSUI
 
 🛠 A tool for visually organizing, creating and managing JavaScript projects.  

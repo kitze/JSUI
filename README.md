@@ -16,8 +16,6 @@ It doesn't matter if it's a frontend or a backend app or what framework it's usi
 
 [💸 Support on Open Collective](https://opencollective.com/jsui)  
 [🐦 Follow updates on Twitter](https://twitter.com/jsui_app)  
-🙌️ Made by [Kitze](https://twitter.com/thekitze)  
-🏫️ Supported by [React Academy](https://reactacademy.io)
 
 ---
 

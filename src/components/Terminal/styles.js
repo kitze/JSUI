@@ -14,5 +14,6 @@ export const Terminal = emotion.div({
   padding: 10,
   lineHeight: '17px',
   fontSize: 13,
-  fontWeight: 300
+  fontWeight: 300,
+  zIndex: 99
 });

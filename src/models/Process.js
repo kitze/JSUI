@@ -15,11 +15,11 @@ const fkill = remote.require('fkill');
 
 export default types
   .model('Process', {
-    id: types.optional(types.identifier(), () => uuid.v4()),
-    project: types.maybe(types.reference(types.late(() => Project))),
+    id: types.optional(types.identifier, () => uuid.v4()),
+    project: types.maybeNull(types.reference(types.late(() => Project))),
     output: '',
     running: false,
-    code: types.maybe(types.number),
+    code: types.maybeNull(types.number),
     path: '',
     command: '',
     argz: types.optional(types.array(types.string), []),

@@ -4,7 +4,6 @@ import { fixedHeight, fixedWidth, noSelect, whiteish } from 'styles/mixins';
 import IconWithTip from 'components/IconWithTip';
 
 import { Horizontal as $Horizontal, Vertical as $Vertical } from 'styles/flex-components';
-import { colors } from 'styles/colors';
 
 export const Horizontal = $Horizontal;
 export const Vertical = $Vertical;

@@ -18,6 +18,7 @@ export default types
     showScriptsCommands: types.optional(types.boolean, true),
     labelScriptsCommands: types.optional(types.boolean, true),
     verticalScriptsLayout: types.optional(types.boolean, false),
+    openProjectWhenRunning: types.optional(types.boolean, false)
   })
   .actions(self => ({
     setSettingValue: (valueKey, value) => {

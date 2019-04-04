@@ -16,6 +16,7 @@ import { faGithub } from '@fortawesome/fontawesome-free-brands';
 //styles
 import * as S from './styles';
 import * as A from 'styles/shared-components';
+import flex from 'styles/flex';
 
 //components
 import Group from 'components/Group';
@@ -93,7 +94,18 @@ class Home extends Component {
           <A.Horizontal>
             {settings.showHomeSidebar && <FilterProjectsSidebar />}
             <A.Mid>
-              <S.GroupList horizontal={horizontalLayout}>
+              <S.GroupList
+                contentProps={{
+                  style: {
+                    ...(horizontalLayout && {
+                      ...flex.horizontal,
+                      flex: 1,
+                      alignItems: 'stretch'
+                    })
+                  }
+                }}
+                horizontal={horizontalLayout}
+              >
                 {groupsWithProjects.map(group => (
                   <Group
                     horizontal={horizontalLayout}

@@ -8,7 +8,7 @@ export const Header = emotion.div({
   ...flex.spaceBetween,
   width: '100%',
   minHeight: 50,
-  backgroundColor: colors.purple5,
+  // backgroundColor: colors.purple5,
   padding: 15,
   color: 'white'
 });

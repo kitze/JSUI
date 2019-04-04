@@ -8,7 +8,7 @@ class Sidebar extends Component {
   render() {
     const {children} = this.props;
     return (
-      <S.Sidebar>
+      <S.Sidebar noScrollX>
         {children}
       </S.Sidebar>
     )

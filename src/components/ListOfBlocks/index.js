@@ -11,10 +11,10 @@ class ListOfBlocks extends Component {
 
     return (
       <S.ListOfBlocks>
-        {map(list, plugin => (
-          <A.Block.Wrap onClick={() => onPick(plugin)}>
-            <A.Block.Name>{plugin.title || plugin.name}</A.Block.Name>
-            <A.Block.Description>{plugin.description}</A.Block.Description>
+        {map(list, item => (
+          <A.Block.Wrap onClick={() => onPick(item)}>
+            <A.Block.Name>{item.title || item.name}</A.Block.Name>
+            <A.Block.Description>{item.description}</A.Block.Description>
           </A.Block.Wrap>
         ))}
       </S.ListOfBlocks>

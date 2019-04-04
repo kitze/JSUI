@@ -25,9 +25,7 @@ export const Group = emotion(Vertical)(
     }),
     ...(horizontal && {
       marginRight: 15,
-      flex: 1,
-      width: 300,
-      ...debug()
+      width: 300
     })
   })
 );
@@ -50,4 +48,3 @@ export const ProjectList = emotion.div(
     })
   })
 );
-

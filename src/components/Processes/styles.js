@@ -12,8 +12,14 @@ export const Processes = emotion.div(
     ...flex.vertical,
     backgroundColor: 'gray'
   },
-  ({ height }) => ({
-    height
+  ({ height, fullScreen }) => ({
+    ...(fullScreen
+      ? {
+          height: '100vh'
+        }
+      : {
+          height
+        })
   })
 );
 

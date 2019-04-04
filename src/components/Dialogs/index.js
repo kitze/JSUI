@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import generators from 'generators';
+import cleanups from 'cleanups';
 import routes from 'config/routes';
 import { getActionsForPopup } from 'models/actions';
 
@@ -20,6 +21,7 @@ import CliGenerator from 'components/CliGenerator';
 import ImportWorkspace from 'components/ImportWorkspace';
 import ImportWebUrl from 'components/ImportWebUrl';
 import ImportGithubUrl from 'components/ImportGithubUrl';
+import CloneProjectDialog from 'components/CloneProjectDialog';
 
 @inject('store')
 @observer
@@ -101,17 +103,16 @@ class Dialogs extends Component {
           </Dialog>
         )}
 
-        {store.activeGenerator !== null &&
-          store.activeGenerator !== undefined && (
-            <Dialog key="active-generator" onClose={store.clearActiveGenerator}>
-              <CliGenerator
-                onCancel={store.clearActiveGenerator}
-                initialValues={store.activeGenerator.initialValues}
-                onSubmit={store.runCliGenerator}
-                generator={store.activeGenerator}
-              />
-            </Dialog>
-          )}
+        {store.activeGenerator !== null && store.activeGenerator !== undefined && (
+          <Dialog key="active-generator" onClose={store.clearActiveGenerator}>
+            <CliGenerator
+              onCancel={store.clearActiveGenerator}
+              initialValues={store.activeGenerator.initialValues}
+              onSubmit={store.runCliGenerator}
+              generator={store.activeGenerator}
+            />
+          </Dialog>
+        )}
 
         {store.generateDialogOpen.value === true && (
           <Dialog key="generate-dialog" onClose={store.generateDialogOpen.setFalse}>
@@ -119,6 +120,25 @@ class Dialogs extends Component {
               <h3> Generate a project </h3>
               <ListOfBlocks onPick={store.setActiveGenerator} list={generators} />
             </A.DialogContent>
+          </Dialog>
+        )}
+
+        {store.cleanupDialogOpen.value === true && (
+          <Dialog key="cleanup-dialog" onClose={store.cleanupDialogOpen.setFalse}>
+            <A.DialogContent>
+              <h3> Choose a wizard </h3>
+              <ListOfBlocks onPick={store.setActiveCleanup} list={cleanups} />
+            </A.DialogContent>
+          </Dialog>
+        )}
+
+        {store.cloningProject && (
+          <Dialog key="cloning-project-dialog" onClose={store.closeCloningDialog}>
+            <CloneProjectDialog
+              onCancel={store.closeCloningDialog}
+              onSubmit={store.cloneProject}
+              project={store.cloningProject}
+            />
           </Dialog>
         )}
 

@@ -18,7 +18,9 @@ const stories = storiesOf('Project card', module);
 stories
   .addDecorator(wrappers.padding)
   .addDecorator(withKnobs)
-  .addDecorator(wrappers.store({}))
+  .addDecorator(wrappers.store({
+    settings: {}
+  }))
   .addDecorator(wrappers.backgrounds);
 
 const getProject = ({

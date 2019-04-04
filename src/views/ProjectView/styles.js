@@ -17,7 +17,7 @@ export const Right = emotion.div({
 
 export const InfoStrip = emotion(A.Horizontal)({
   padding: 15,
-  backgroundColor: '#465065',
+  // backgroundColor: '#465065',
   color: 'white',
   fontSize: 14
 });

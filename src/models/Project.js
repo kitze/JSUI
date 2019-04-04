@@ -6,6 +6,7 @@ import { toast } from 'config/swal';
 import axios from 'axios';
 import routes from 'config/routes';
 import pify from 'pify';
+import Swal from 'sweetalert2';
 
 //icons
 import { faExternalLinkAlt } from '@fortawesome/fontawesome-free-solid';
@@ -47,24 +48,24 @@ const Generator = types.model({
 
 export default types
   .model('Project', {
-    id: types.optional(types.identifier(), () => uuid.v4()),
-    group: types.maybe(types.reference(Group)),
+    id: types.optional(types.identifier, () => uuid.v4()),
+    group: types.maybeNull(types.reference(Group)),
     generatorList: types.optional(types.array(Generator), []),
     isWebBased: false,
     webUrl: '',
     name: '',
     path: '',
     type: '',
-    allItems: types.optional(types.frozen, []),
+    allItems: types.optional(types.frozen(), []),
     tabs: types.optional(types.array(Tab), []),
     ready: true,
     editingScript: types.optional(types.string, ''),
     addingScript: createModel(Boolean),
     //frozen
-    packageJson: types.frozen,
-    gitConfig: types.frozen,
-    gitBranch: types.frozen,
-    contents: types.frozen
+    packageJson: types.frozen(),
+    gitConfig: types.frozen(),
+    gitBranch: types.frozen(),
+    contents: types.frozen()
   })
   .actions(self => {
     let plop;
@@ -116,11 +117,16 @@ export default types
         store.createNotification('Done', `Dependencies for ${self.name} are installed.`);
       }),
       reinstallDependencies: flow(function*() {
-        const confirmed = yield confirmDelete(
-          'Are you sure?',
-          `This will remove the node_modules folder and reinstall the dependencies again.`
-        );
-        if (confirmed) {
+        if (fs.existsSync(path.join(self.path, 'node_modules'))) {
+          const confirmed = yield confirmDelete(
+            'Are you sure?',
+            `This will remove the node_modules folder and reinstall the dependencies again.`
+          );
+          if (confirmed) {
+            yield self.deleteNodeModulesFolder(false);
+            self.installNodeModules();
+          }
+        } else {
           yield self.deleteNodeModulesFolder(false);
           self.installNodeModules();
         }
@@ -156,6 +162,18 @@ export default types
           self.updatePackageJson(newPackageJson);
         }
       }),
+      toggleFavorite: flow(function*(name) {
+        const current = self.packageJson.favoriteScripts || [];
+        const favoriteScripts = current.includes(name) ? current.filter(n => n !== name) : [...current, name];
+        const newPackageJson = {
+          ...self.packageJson,
+          favoriteScripts
+        };
+        self.updatePackageJson(newPackageJson);
+      }),
+      checkScriptFavorite: name => {
+        return self.packageJson.favoriteScripts && self.packageJson.favoriteScripts.includes(name);
+      },
       editScript: flow(function*(name) {
         self.editingScript = name;
       }),
@@ -297,11 +315,51 @@ export default types
       },
       navigateThenStart: () => {
         const store = getRoot(self);
-        store.router.openPage(routes.project, { id: self.id });
-        setTimeout(() => {
+        if (store.settings.openProjectWhenRunning === true) {
+          store.router.openPage(routes.project, { id: self.id });
+          setTimeout(() => {
+            self.start();
+          }, 250);
+        } else {
           self.start();
-        }, 250);
+        }
       },
+      navigate: () => {
+        const store = getRoot(self);
+        const project = self;
+        const { router } = store;
+        if (project.ready === false) {
+          return Swal({
+            title: 'The project is not ready yet, please wait.',
+            text: 'The generator is still working.',
+            type: 'warning'
+          });
+        }
+        router.openPage(project.isWebBased ? routes.webProject : routes.project, { id: project.id });
+      },
+      deleteFromDisk: flow(function*() {
+        const store = getRoot(self);
+
+        const { value } = yield Swal({
+          title: `This will delete the project from disk, are you sure?`,
+          type: 'warning',
+          showCancelButton: true
+        });
+
+        if (value === true) {
+          console.log('deleting', self.path);
+          rimraf.sync(self.path);
+          store.removeProjectById(self.id);
+          yield Swal({
+            title: 'Successfully deleted project from disk!',
+            type: 'success'
+          });
+        }
+      }),
+      clone: flow(function*() {
+        const store = getRoot(self);
+        store.setCloningProject(self);
+      }),
       goToOrigin: () => {
         shell.openExternal(self.origin);
       },
@@ -312,9 +370,6 @@ export default types
         const store = getRoot(self);
         let openedFilePath = path.join(self.path, 'package.json');
         store.setOpenedFile(openedFilePath);
-      },
-      clone: async () => {
-        const dialog = await ipcc.callMain('open-dialog');
       },
       closeFile: () => {
         self.openedFile = null;

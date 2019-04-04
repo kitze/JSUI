@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { observer, inject } from 'mobx-react';
-import { faTrash, faPenSquare } from '@fortawesome/fontawesome-free-solid';
+import { faTrash, faPenSquare, faStar } from '@fortawesome/fontawesome-free-solid';
 
 //styles
 import * as S from './styles';
@@ -22,14 +22,21 @@ class NpmScript extends Component {
     scripts.highlightedCommand.setValue(name);
   };
 
-  deleteScript = (e,name) => {
+  deleteScript = (e, name) => {
     e.preventDefault();
     e.stopPropagation();
     const { store } = this.props;
     store.currentProject.deleteScript(name);
   };
 
-  editScript = (e,name) => {
+  toggleFavorite = (e, name) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const { store } = this.props;
+    store.currentProject.toggleFavorite(name);
+  };
+
+  editScript = (e, name) => {
     e.preventDefault();
     e.stopPropagation();
     const { store } = this.props;
@@ -46,7 +53,9 @@ class NpmScript extends Component {
       labelScriptsCommands,
       verticalScriptsLayout
     } = settings;
+
     const onlyName = !showScriptsCommands && !showScriptsDescriptions;
+    const isFavorite = store.currentProject.checkScriptFavorite(name);
 
     return (
       <S.NpmScript
@@ -66,8 +75,9 @@ class NpmScript extends Component {
             {/*onIcon={faCaretUp}*/}
             {/*offIcon={faCaretDown}*/}
             {/*/>*/}
-            <S.ActionIcon onClick={(e) => this.deleteScript(e,name)} icon={faTrash} />
-            <S.ActionIcon onClick={(e) => this.editScript(e,name)} icon={faPenSquare} />
+            <S.ActionIcon onClick={e => this.deleteScript(e, name)} icon={faTrash} />
+            <S.ActionIcon onClick={e => this.editScript(e, name)} icon={faPenSquare} />
+            <S.ActionIcon favorite={isFavorite} onClick={e => this.toggleFavorite(e, name)} icon={faStar} />
           </S.Icons>
         </A.Horizontal>
 

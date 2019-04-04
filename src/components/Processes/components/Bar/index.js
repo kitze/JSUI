@@ -7,7 +7,9 @@ import {
   faSpinner,
   faStop,
   faSync,
-  faSkull
+  faSkull,
+  faWindowMaximize,
+  faWindowMinimize
 } from '@fortawesome/fontawesome-free-solid/index';
 
 //styles
@@ -50,20 +52,28 @@ class Bar extends Component {
       onMouseDown,
       title,
       minimized,
+      fullScreen,
       onClearOutput,
       onRestart,
       onStop,
       onMinimize,
-      onKill
+      onKill,
+      onFullScreen,
+      allowResize
     } = this.props;
 
     return (
-      <S.Bar onMouseDown={onMouseDown} minimized={minimized}>
+      <S.Bar allowResize={allowResize} onMouseDown={onMouseDown} minimized={minimized}>
         <Horizontal spaceAll={15} centerV>
           <S.TerminalIcon
             tip={minimized ? 'Maximize' : 'Minimize'}
             onClick={onMinimize}
             icon={minimized ? faCaretUp : faCaretDown}
+          />
+          <S.TerminalIcon
+            tip={fullScreen ? 'Bottom' : 'Full Screen'}
+            onClick={onFullScreen}
+            icon={fullScreen ? faWindowMinimize : faWindowMaximize}
           />
           {running && <S.TerminalIcon spin={true} icon={faSpinner} />}
           {title && <S.Title>{title}</S.Title>}

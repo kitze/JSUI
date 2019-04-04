@@ -7,9 +7,9 @@ import { withKnobs } from '@storybook/addon-knobs';
 import { wrappers } from 'storybook-helpers';
 
 //components
-import ImportWorkspace from './index';
+import ImportGithubUrl from './index';
 
-const stories = storiesOf('ImportWorkspace');
+const stories = storiesOf('ImportGithubUrl');
 
 stories
   .addDecorator(wrappers.backgrounds)
@@ -18,6 +18,6 @@ stories
 
 stories.add('default', () => {
   return (
-    <ImportWorkspace/>
+    <ImportGithubUrl/>
   );
 });

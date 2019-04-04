@@ -12,7 +12,7 @@ import { Horizontal } from 'styles/flex-components';
 
 //components
 import IconWithTip from 'components/IconWithTip';
-import { faAdjust, faBold, faBomb, faCog } from '@fortawesome/fontawesome-free-solid/index';
+import { faAdjust, faBold, faBomb, faCog, faMagic } from '@fortawesome/fontawesome-free-solid/index';
 
 @inject('store')
 @observer
@@ -26,7 +26,13 @@ class Header extends Component {
       <S.Header>
         <A.Horizontal spaceAll={15}>
           {showHomeIcon && (
-            <IconWithTip tip="Go home" onClick={() => router.openPage(routes.home)} icon={faHome} />
+            <IconWithTip
+              tip="Go home"
+              onClick={() => {
+                router.openPage(routes.home);
+              }}
+              icon={faHome}
+            />
           )}
         </A.Horizontal>
 
@@ -35,6 +41,7 @@ class Header extends Component {
         <A.Horizontal spaceAll={15}>
           {renderRight && renderRight}
           <IconWithTip onClick={store.killProcess} icon={faBomb} tip="Kill a port" />
+          <IconWithTip onClick={store.startCleanup} icon={faMagic} tip="Wizards" />
           <IconWithTip
             onClick={store.cssConverterDialogOpen.setTrue}
             icon={faAdjust}

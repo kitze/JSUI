@@ -2,8 +2,6 @@ import flex from 'styles/flex';
 import { fixedHeight, size } from 'styles/mixins';
 import { common } from 'styles/flex-components';
 import emotion from 'react-emotion';
-
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import IconWithTip from 'components/IconWithTip';
 
 export const Bar = emotion.div(
@@ -17,10 +15,11 @@ export const Bar = emotion.div(
     backgroundColor: '#192335',
     userSelect: 'none'
   },
-  ({ minimized }) => ({
-    ...(!minimized && {
-      cursor: 'ns-resize'
-    })
+  ({ minimized, allowResize }) => ({
+    ...(!minimized &&
+      allowResize && {
+        cursor: 'ns-resize'
+      })
   })
 );
 

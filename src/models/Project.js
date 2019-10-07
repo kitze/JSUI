@@ -93,10 +93,18 @@ export default types
         }
       },
       openDir: () => {
-        if (process.platform === 'darwin') {
-          spawn('open', [self.path]);
-        } else if (process.platform === 'win32') {
-          spawn('explorer', [self.path]);
+        // @see https://nodejs.org/dist/latest-v4.x/docs/api/os.html#os_os_platform
+        switch (process.platform) {
+          case 'darwin':
+            spawn('open', [self.path]);
+            break;
+          case 'win32':
+            spawn('explorer', [self.path]);
+            break;
+          case 'linux': // fallthrough
+          case 'freebsd':
+            spawn('xdg-open', [self.path]);
+            break;
         }
       },
       build: () => {

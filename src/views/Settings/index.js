@@ -86,6 +86,12 @@ class Settings extends Component {
                 <S.Switch {...bindSettingToSwitch(settings, 'automaticallyReleasePorts')} />
                 <S.Option.Title>Automatically release ports when they're blocked</S.Option.Title>
               </A.Horizontal>
+
+              <A.Horizontal centerV>
+                <S.Switch {...bindSettingToSwitch(settings, 'openProjectWhenRunning')} />
+                <S.Option.Title>Open project page when running it from the main dashboard</S.Option.Title>
+              </A.Horizontal>
+
             </TabContainer>
 
             <A.Space size={spaceBetweenSections} />

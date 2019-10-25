@@ -1,21 +1,16 @@
 import { flow, getRoot, types } from 'mobx-state-tree';
 import ipcc from 'ipcc/renderer';
 import pify from 'pify';
-
 //config
 import { PACKAGE_REGISTRY_URL } from 'config/urls';
 import { IMPORT_WORKSPACE_TYPES, PROJECT_PRIVACY, PROJECT_REPO } from 'config/enums';
-
 //swal
 import Swal from 'sweetalert2';
-import { toast } from 'config/swal';
-import { confirmDelete, prompt } from 'config/swal';
-
+import { confirmDelete, prompt, toast } from 'config/swal';
 //utils
-import { compact, uniqBy, pick, countBy, groupBy, orderBy, get } from 'lodash';
+import { compact, countBy, get, groupBy, orderBy, uniqBy } from 'lodash';
 import { createModel, whatever } from 'utils/mst-utils';
 import { getLastFromString, includesLowercase } from 'utils/string-utils';
-
 //models
 import Group from './Group';
 import Project from './Project';
@@ -25,7 +20,6 @@ import Actions from './actions';
 import Processes from './Processes';
 import Boolean from './Boolean';
 import ProjectFilters from 'models/ProjectFilters';
-
 //stores
 import SettingsView from 'models/views/settings-view';
 import HomeView from 'models/views/home-view';
@@ -38,6 +32,7 @@ const { remote } = window.require('electron');
 const fkill = remote.require('fkill');
 const rimraf = remote.require('rimraf');
 const fs = window.require('fs');
+const fsExtra = require('fs-extra');
 const path = window.require('path');
 
 export default types
@@ -49,14 +44,16 @@ export default types
     //other
     firstLoad: true,
     router: types.optional(RouterStore, {}),
-    openedFile: types.maybe(File),
+    openedFile: types.maybeNull(File),
     settings: types.optional(SettingsView, {}),
     home: types.optional(HomeView, {}),
-    addingProjectToGroup: types.maybe(types.reference(Project)),
+    addingProjectToGroup: types.maybeNull(types.reference(Project)),
     activeGenerator: whatever(null),
     importingWorkspace: whatever(null),
     projectFilters: createModel(ProjectFilters),
     processes: createModel(Processes),
+    activeCleanup: whatever(null),
+    cloningProject: types.maybeNull(types.reference(Project)),
 
     //booleans
     settingsOpened: createModel(Boolean),
@@ -68,6 +65,7 @@ export default types
     actions: createModel(Actions),
     generateDialogOpen: createModel(Boolean),
     importingGithubUrl: createModel(Boolean),
+    cleanupDialogOpen: createModel(Boolean),
     focused: createModel(Boolean, { value: true })
   })
   .actions(self => {
@@ -86,6 +84,68 @@ export default types
             myNotification.onclick = () => cb;
           }
         }
+      },
+      cloneProject: projectInfo => {
+        console.log('cloning', self.cloningProject, projectInfo);
+        const store = getRoot(self);
+        const newPath = path.join(store.settings.projectsPath, projectInfo.name);
+        console.log('newPath', newPath);
+        const files = fs.readdirSync(self.cloningProject.path);
+        files.forEach(file => {
+          if (!['node_modules', '.idea', '.git'].includes(file)) {
+            const fromFile = path.join(self.cloningProject.path, file);
+            const toFile = path.join(newPath, file);
+            fsExtra.copySync(fromFile, toFile);
+          }
+        });
+        const newProject = Project.create({
+          name: projectInfo.name,
+          path: newPath
+        });
+        self.addNewProject(newProject);
+        Swal({
+          title: `Successfully cloned project!`,
+          type: 'success'
+        });
+        self.cloningProject = undefined;
+      },
+      setActiveCleanup: flow(function*(cleanup) {
+        self.activeCleanup = cleanup;
+        if (cleanup.id === 'remove-non-existing') {
+          const newProjects = self.projects.filter(project => fs.existsSync(project.path));
+          const deletedProjectsLength = self.projects.length - newProjects.length;
+          Swal({
+            title: `Successfully removed ${deletedProjectsLength} projects!`,
+            type: 'success'
+          });
+
+          if (deletedProjectsLength > 0) {
+            const { value } = yield Swal({
+              title: `Are you sure you want you want to remove ${deletedProjectsLength}?`,
+              type: 'warning',
+              showCancelButton: true
+            });
+            if (value === true) {
+              self.projects.replace(newProjects);
+            }
+          } else {
+            Swal({
+              title: `All projects exist on disk.`,
+              type: 'success'
+            });
+          }
+        } else if (cleanup.id === 'add-missing-projects') {
+          self.bulkImport(self.settings.projectsPath);
+          Swal({
+            title: `Imported missing projects!`,
+            type: 'success'
+          });
+        }
+        self.closeCleanup();
+      }),
+      closeCleanup: () => {
+        self.cleanupDialogOpen.setFalse();
+        self.activeCleanup = null;
       },
       importWebProject: flow(function*({ name, url }) {
         self.importingWebUrl.setFalse();
@@ -179,9 +239,13 @@ export default types
       addProjectToGroup: project => {
         self.addingProjectToGroup = project;
       },
-      bulkImport: flow(function*() {
+      bulkImport: flow(function*(folder) {
         const ignored = ['node_modules'];
-        const folderName = yield ipcc.callMain('open-dialog');
+        let folderName = folder;
+
+        if (!folder) {
+          folderName = yield ipcc.callMain('open-dialog');
+        }
 
         if (!folderName) {
           return null;
@@ -204,17 +268,22 @@ export default types
         });
 
         if (foldersWithPackageJson.length > 1) {
-          let groupName = getLastFromString(folderName, '/');
-          const group = Group.create({ name: groupName });
-          self.groups.push(group);
+          // let groupName = getLastFromString(folderName, '/');
+          // const group = Group.create({ name: groupName });
+          // self.groups.push(group);
           foldersWithPackageJson.forEach(folder => {
             let folderPath = path.join(folderName, folder);
-            const newProject = Project.create({
-              name: getLastFromString(folderPath, '/'),
-              path: folderPath,
-              group
-            });
-            self.addNewProject(newProject);
+            if (self.projects.find(project => project.path === folderPath)) {
+              console.log('folder path already exists', folderPath);
+            } else {
+              console.log('adding', folderPath);
+              const newProject = Project.create({
+                name: getLastFromString(folderPath, '/'),
+                path: folderPath
+                // group
+              });
+              self.addNewProject(newProject);
+            }
           });
         }
       }),
@@ -356,6 +425,16 @@ export default types
           self.groups = self.groups.filter(g => g.id !== groupId);
         }
       }),
+      removeProjectById: id => {
+        const newProjects = self.projects.filter(project => project.id !== id);
+        self.projects = newProjects;
+      },
+      setCloningProject: project => {
+        self.cloningProject = project;
+      },
+      closeCloningDialog: () => {
+        self.cloningProject = null;
+      },
       createProject: flow(function* createProject({ path, name, cli, cliName = cli, argz }) {
         const commandExists = yield ipcc.callMain('command-exists', cli);
 
@@ -403,6 +482,9 @@ export default types
       setActiveGenerator: generator => {
         self.generateDialogOpen.setFalse();
         self.activeGenerator = generator;
+      },
+      startCleanup: () => {
+        self.cleanupDialogOpen.setTrue();
       },
       clearActiveGenerator: () => {
         self.activeGenerator = null;

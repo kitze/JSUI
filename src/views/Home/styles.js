@@ -1,6 +1,6 @@
 import flex from 'styles/flex';
 import emotion from 'react-emotion';
-import { debug } from 'config/debug';
+import Scroll from 'react-scrollbars-custom';
 
 export const Home = emotion.div({
   ...flex.vertical,
@@ -23,13 +23,11 @@ export const Empty = emotion.div({
   flex: 1
 });
 
-export const GroupList = emotion.div({}, ({ horizontal }) => ({
+export const GroupList = emotion(Scroll)({}, ({ horizontal }) => ({
+  flex: 1,
   ...(horizontal && {
     ...flex.horizontal,
-    ...debug('Group list'),
     flex: 1,
-    overflowX: 'auto',
     alignItems: 'stretch'
-    // overflowY: 'hidden'
   })
 }));

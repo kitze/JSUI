@@ -8,8 +8,7 @@ class BabelRepl extends Component {
 
   componentDidMount() {
     const webview = this.babelWebView.current;
-    console.log('webview', webview);
-    if (webview) {
+    if (webview && webview.insertCSS) {
       webview.insertCSS(`
         * {
           display: none !important;

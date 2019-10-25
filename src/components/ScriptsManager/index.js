@@ -1,19 +1,16 @@
 import React, { Component } from 'react';
-import { observer, inject } from 'mobx-react';
+import { inject, observer, Provider } from 'mobx-react';
 import map from 'lodash/map';
 import { types } from 'mobx-state-tree';
-import { Provider } from 'mobx-react';
 import groupBy from 'lodash/groupBy';
 import partition from 'lodash/partition';
 import { faCog, faPlus, faTimes } from '@fortawesome/fontawesome-free-solid';
 import { FormControlLabel, Switch } from '@material-ui/core';
-
 //styles
 import * as S from './styles';
 import * as A from 'styles/shared-components';
 import Boolean from 'models/Boolean';
 import String from 'models/String';
-
 //component
 import { createModel } from 'utils/mst-utils';
 import ScriptsGroup from 'components/ScriptsGroup';
@@ -49,6 +46,8 @@ class ScriptsManager extends Component {
       };
     });
 
+    const favorites = packageJson.favoriteScripts || [];
+
     const [withHooks, withoutHooks] = partition(list, item => {
       let hasAPre = packageJson.scripts[`pre${item.name}`];
       let hasAPost = packageJson.scripts[`post${item.name}`];
@@ -58,17 +57,36 @@ class ScriptsManager extends Component {
     });
 
     const [prefixed, single] = partition(withoutHooks, item => {
+      if (favorites.includes(item.name)) {
+        return false;
+      }
+
       const includesSemi = item.name.includes(':');
-      if (includesSemi) {
+
+      //if there is "deploy", group it with "deploy:db", "deploy:all", etc
+      const relatesToOtherScriptsThatHaveSemi = withoutHooks.some(
+        s => item.name !== s.name && item.name === s.name.split(':')[0]
+      );
+
+      if (includesSemi || relatesToOtherScriptsThatHaveSemi) {
         const splitted = item.name.split(':');
         return Object.entries(packageJson.scripts).find(
           ([a]) => a.includes(`${splitted[0]}:`) === true && a !== item.name
         );
       }
+
+      //always return start in a separate group
+      if (item.name === 'start') {
+        return 'start';
+      }
+
       return false;
     });
 
-    const groupedPrefixed = groupBy(prefixed, item => item.name.split(':')[0]);
+    const groupedPrefixed = groupBy(prefixed, item => {
+      const splitted = item.name.split(':');
+      return splitted[0];
+    });
 
     const groupedWithHooks = groupBy(withHooks, item => {
       const separator = item.name.startsWith('post') ? 'post' : 'pre';
@@ -78,11 +96,19 @@ class ScriptsManager extends Component {
       return item.name;
     });
 
-    const grouped = { ...groupedPrefixed, ...groupedWithHooks };
+    const favoritesGroup = withoutHooks.filter(s => favorites.includes(s.name));
+
+    const grouped = {
+      ...(favoritesGroup.length > 0 && { Favorites: favoritesGroup }),
+      ...groupedPrefixed,
+      ...groupedWithHooks
+    };
+
+    console.log('grouped', grouped);
 
     const { groupScriptsByPrefix } = settings;
 
-    const showGrouped = groupScriptsByPrefix === true && Object.keys(grouped).length > 1;
+    const showGrouped = groupScriptsByPrefix === true && Object.keys(grouped).length >= 1;
 
     let noScripts = list.length === 0;
     return (
@@ -91,7 +117,11 @@ class ScriptsManager extends Component {
           <A.Horizontal spaceAll={10} centerV>
             <S.Title>Scripts</S.Title>
             <A.Horizontal spaceAll={15} centerV>
-              <IconWithTip tip="Add a script" onClick={this.props.store.currentProject.addingScript.setTrue} icon={faPlus} />
+              <IconWithTip
+                tip="Add a script"
+                onClick={this.props.store.currentProject.addingScript.setTrue}
+                icon={faPlus}
+              />
               <IconWithTip tip="Scripts settings" onClick={this.showSettings.setTrue} icon={faCog} />
             </A.Horizontal>
           </A.Horizontal>

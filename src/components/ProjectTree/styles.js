@@ -7,7 +7,7 @@ export const ProjectTree = styled.div({
   minWidth: 150,
   maxWidth: 300,
   overflow: 'auto',
-  backgroundColor: '#263238',
+  // backgroundColor: '#263238',
   color: 'white',
   padding: '10px 15px 10px 0px'
 });

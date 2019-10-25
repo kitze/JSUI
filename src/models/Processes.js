@@ -9,8 +9,8 @@ import routes from 'config/routes';
 
 export default types
   .model('Processes', {
-    list: types.optional(types.array(types.reference(Process)), []),
-    selectedProcess: types.maybe(types.reference(Process))
+    list: types.optional(types.array(types.maybeNull(Process)), []),
+    selectedProcess: types.maybeNull(types.safeReference(Process))
   })
   .actions(self => {
     let cancelReaction;
@@ -44,8 +44,23 @@ export default types
           self.selectedProcess.stop();
         }
       },
+      closeActive: () => {
+        if (self.selectedProcess) {
+          self.closeProcess(self.selectedProcess);
+        }
+      },
+      resetActive: () => {
+        if (self.selectedProcess) {
+          self.selectedProcess.restart();
+        }
+      },
       setActive: pid => {
-        self.selectedProcess = self.list.find(p => p.id === pid);
+        self.selectedProcess = pid;
+      },
+      clearActiveOutput: () => {
+        if (self.selectedProcess) {
+          self.selectedProcess.clearOutput();
+        }
       },
       killActiveProcesses: () => {
         self.activeForPage.forEach(process => {
@@ -63,6 +78,7 @@ export default types
         return self.selectedProcess.id === process.id;
       },
       add: process => {
+        console.log('process', process);
         self.list.push(process);
         self.selectedProcess = process;
       },
@@ -102,10 +118,11 @@ export default types
       const store = getRoot(self);
       const { router } = store;
 
-      if (router.page === routes.project.id) {
+      if (![routes.project.id, routes.group.id].includes(router.page)) {
+        return self.list;
+      } else if (router.page === routes.project.id) {
         return self.list.filter(p => p.project && p.project.id === router.params.id);
-      }
-      if (router.page === routes.group.id) {
+      } else if (router.page === routes.group.id) {
         return self.list.filter(process => {
           let group = store.groups.find(g => g.id === router.params.id);
           const allProjectIdsInGroup = store.projects

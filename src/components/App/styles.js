@@ -9,5 +9,5 @@ export const App = emotion.div({
   maxHeight: '100vh',
   maxWidth: '100vw',
   overflowY: 'hidden',
-  backgroundColor: '#343f55'
+  // backgroundColor: '#343f55'
 });

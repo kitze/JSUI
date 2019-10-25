@@ -4,7 +4,7 @@ import uuid from 'uuid';
 export default types
   .model('Group', {
     name: '',
-    id: types.optional(types.identifier(), () => uuid.v4())
+    id: types.optional(types.identifier, () => uuid.v4())
   })
   .actions(self => ({
     setName(name) {

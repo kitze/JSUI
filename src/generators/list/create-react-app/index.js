@@ -18,6 +18,18 @@ const ARGUMENTS = {
     type: FIELD_TYPES.TOGGLE,
     flag: true
   },
+  TYPESCRIPT: {
+    name: 'Use Typescript',
+    key: '--typescript',
+    type: FIELD_TYPES.TOGGLE,
+    flag: true
+  },
+  USE_PNP: {
+    name: 'Use PnP',
+    key: '--use-pnp',
+    type: FIELD_TYPES.TOGGLE,
+    flag: true
+  },
   VERBOSE: {
     name: 'Verbose',
     key: '--verbose',
@@ -39,6 +51,8 @@ export default {
   description: 'Generate a vanilla React app',
   cli: CLI_NAME,
   options: [
+    ARGUMENTS.USE_PNP,
+    ARGUMENTS.TYPESCRIPT,
     {
       name: 'Advanced',
       type: 'toggle',

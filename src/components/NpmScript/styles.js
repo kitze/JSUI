@@ -14,7 +14,14 @@ export const Icons = emotion(A.Horizontal)({
 
 export const ActionIcon = emotion(A.ActionIcon)({
   ...size(12)
-});
+}, ({favorite}) => ({
+  ...favorite && {
+    color: 'gold',
+    '&:hover':{
+      color: '#ff8d04',
+    }
+  }
+}));
 
 export const NpmScript = emotion.div(
   {

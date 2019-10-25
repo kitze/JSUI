@@ -35,6 +35,7 @@ export const Tab = emotion.div(
     transition: 'all 100ms linear',
     textAlign: 'center',
     cursor: 'pointer',
+    overflow: 'hidden',
 
     '&:first-child': {
       borderTopLeftRadius: borderRadius,

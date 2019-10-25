@@ -35,7 +35,8 @@ module.exports = function override(config, env) {
       resolveApp('node_modules/p-finally'),
       resolveApp('node_modules/default-shell'),
       resolveApp('node_modules/pify'),
-
+      resolveApp('node_modules/transform-css-to-js'),
+      resolveApp('node_modules/stringify-object')
     );
   }
 

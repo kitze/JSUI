@@ -1,29 +1,27 @@
-import React, { Component, Fragment } from 'react';
-import { observer } from 'mobx-react';
-
+import React, {Component, Fragment} from 'react';
+import {observer} from 'mobx-react';
 //emotion
 import * as S from './styles';
-
 //components
 import Tabs from 'components/Tabs';
 import Tab from 'components/Tab';
 import Terminal from 'components/Terminal';
-
 //local
 import Bar from './components/Bar';
 import ProcessTab from './components/ProcessTab';
 
-import { action, observable } from 'mobx';
+import {action, observable} from 'mobx';
 
 import keydown from 'react-keydown';
 
-const keyCombinations = ['left', 'right', '1', '2', '3', '4', '5', '6', '7', '8', '9'].map(k => `cmd+${k}`)
+const keyCombinations = ['left', 'right', '1', '2', '3', '4', '5', '6', '7', '8', '9'].map(k => `cmd+${k}`);
 
 @observer
 class Processes extends Component {
   parentRef = React.createRef();
 
   @observable minimized = false;
+  @observable fullScreen = false;
   @observable dragging = false;
   @observable height = 300;
   @observable maxHeight = 600;
@@ -47,6 +45,11 @@ class Processes extends Component {
     } else {
       this.height = this.heightBeforeMinimize;
     }
+  };
+
+  @action
+  toggleFullScreen = () => {
+    this.fullScreen = !this.fullScreen;
   };
 
   onResize = (event, { element, size }) => this.setHeight(size.height);
@@ -87,15 +90,31 @@ class Processes extends Component {
     this.props.processes.stopActive();
   }
 
+  @keydown(['ctrl+r'])
+  resetActive() {
+    this.props.processes.resetActive();
+  }
+
+  @keydown(['ctrl+o'])
+  resetActiveOutput() {
+    this.props.processes.clearActiveOutput();
+  }
+
+  @keydown(['ctrl+w'])
+  closeActive() {
+    this.props.processes.closeActive();
+  }
+
   @keydown(keyCombinations)
-  cmdKeyPressed(e){
+  cmdKeyPressed(e) {
     this.props.processes.handleKey(e);
   }
 
   render() {
+
     const { processes, overrides } = this.props;
     const { activeForPage, setActive, selectedProcess } = processes;
-    const { minimized, toggleMinimize } = overrides || this;
+    const { minimized, fullScreen, toggleFullScreen, toggleMinimize } = overrides || this;
     const { height } = this;
 
     if (!selectedProcess) {
@@ -108,10 +127,13 @@ class Processes extends Component {
       </Fragment>
     );
 
+    const allowResize = !fullScreen;
+
     return (
-      <S.Processes ref={this.parentRef} height={height}>
+      <S.Processes fullScreen={fullScreen} ref={this.parentRef} height={height}>
         <Bar
-          onMouseDown={this.onMouseDown}
+          allowResize={allowResize}
+          onMouseDown={allowResize && this.onMouseDown}
           running={processes.hasRunning}
           title="Terminal"
           onClearOutput={selectedProcess.clearOutput}
@@ -120,6 +142,8 @@ class Processes extends Component {
           onKill={processes.killActiveProcesses}
           onMinimize={toggleMinimize}
           minimized={minimized}
+          fullScreen={fullScreen}
+          onFullScreen={toggleFullScreen}
         />
         <Tabs rightSide={rightSide} onSelect={tab => setActive(tab.value)} value={selectedProcess.id}>
           {activeForPage.map((process, index) => (

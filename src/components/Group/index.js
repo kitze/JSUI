@@ -32,7 +32,8 @@ class Group extends Component {
     const showProjects = hasProjects && collapsed === false && this.collapsed.value === false;
     const hide = hideIfEmpty && !hasProjects;
     const showCollapse = hasProjects && !collapsed && !horizontal;
-    const showPlayButton = !group.projects.every(project => project.isWebBased);
+    const isCollapsed = collapsed === true || this.collapsed.value === true;
+    const showPlayButton = !group.projects.every(project => project.isWebBased) && !isCollapsed;
 
     return (
       <S.Group hide={hide} horizontal={horizontal} spaceAll={10} collapsed={collapsed} onClick={onClick}>
@@ -46,7 +47,7 @@ class Group extends Component {
                 tip="Collapse group"
               />
             )}
-            <A.Link disable={collapsed} onClick={() => store.router.openPage(routes.group, { id: group.id })}>
+            <A.Link disable={isCollapsed} onClick={() => store.router.openPage(routes.group, { id: group.id })}>
               {group.name}
             </A.Link>
             {showPlayButton && (
@@ -59,7 +60,7 @@ class Group extends Component {
             )}
           </A.Horizontal>
 
-          {!collapsed && (
+          {!isCollapsed && (
             <A.Horizontal spaceAll={15}>
               <A.ActionIcon
                 onClick={() => store.openFolder(group.id)}
@@ -80,6 +81,7 @@ class Group extends Component {
           <S.ProjectList horizontal={horizontal}>
             {group.projects.map(project => (
               <ProjectCard
+
                 horizontal={horizontal}
                 showMove={store.canMoveProject}
                 project={project}

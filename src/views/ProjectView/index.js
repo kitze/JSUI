@@ -3,7 +3,7 @@ import React, { Component, Fragment } from 'react';
 import { inject, observer } from 'mobx-react';
 import { reaction } from 'mobx';
 import keydown from 'react-keydown';
-import { remote } from 'electron';
+import getNativeModules from 'config/native-modules';
 
 //icons
 import {
@@ -13,7 +13,6 @@ import {
   faTrashAlt,
   faSyncAlt,
   faFolder,
-  faPlug,
   faCogs
 } from '@fortawesome/fontawesome-free-solid/index';
 
@@ -47,7 +46,7 @@ import Boolean from 'models/Boolean';
 import String from 'models/String';
 import ScriptsManager from 'components/ScriptsManager';
 
-const plugins = remote.require('./plugins/index');
+const { plugins } = getNativeModules();
 
 //endregion
 @inject('store')
@@ -61,6 +60,31 @@ class ProjectView extends Component {
   @keydown(['cmd+shift+n'])
   submit() {
     this.searchOpened.setTrue();
+  }
+
+  @keydown(['e'])
+  edit() {
+    this.props.store.currentProject.edit();
+  }
+
+  @keydown(['o'])
+  open() {
+    this.props.store.currentProject.openDir();
+  }
+
+  @keydown(['r'])
+  refreshInfo() {
+    this.props.store.currentProject.readProjectInfo();
+  }
+
+  @keydown(['n'])
+  reinstall() {
+    this.props.store.currentProject.reinstallDependencies();
+  }
+
+  @keydown(['g'])
+  openGit() {
+    this.props.store.currentProject.goToOrigin();
   }
 
   componentDidMount() {

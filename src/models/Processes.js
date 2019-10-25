@@ -9,8 +9,8 @@ import routes from 'config/routes';
 
 export default types
   .model('Processes', {
-    list: types.optional(types.array(types.maybeNull(types.reference(types.Process))), []),
-    selectedProcess: types.maybeNull(types.reference(Process))
+    list: types.optional(types.array(types.maybeNull(Process)), []),
+    selectedProcess: types.maybeNull(types.safeReference(Process))
   })
   .actions(self => {
     let cancelReaction;
@@ -55,7 +55,7 @@ export default types
         }
       },
       setActive: pid => {
-        self.selectedProcess = self.list.find(p => p.id === pid);
+        self.selectedProcess = pid;
       },
       clearActiveOutput: () => {
         if (self.selectedProcess) {

@@ -39,7 +39,7 @@
     "electron-store": "^2.0.0",
     "electron-timber": "^0.4.0",
     "electron-unhandled": "^1.1.0",
-    "electron-updater": "^2.21.4",
+    "electron-updater": "^4.1.2",
     "emotion": "^10.0.17",
     "final-form": "^4.7.3",
     "fix-path": "^2.1.0",

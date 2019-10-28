@@ -1,12 +1,11 @@
 import emotion from '@emotion/styled';
 import flex from 'styles/flex';
 import { Vertical } from 'styles/flex-components';
-import { noSelect, whiteish } from 'styles/mixins';
-import { debug } from 'config/debug';
+import { whiteish } from 'styles/mixins';
 
 export const Group = emotion(Vertical)(
   {
-    backgroundColor: whiteish(0.05),
+    backgroundColor: whiteish(0.03),
     borderRadius: 5,
     padding: 15,
     marginBottom: 15,

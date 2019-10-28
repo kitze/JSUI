@@ -58,7 +58,7 @@ class Home extends Component {
                 tip="Import a VS Code workspace"
               />
               <IconWithTip
-                onClick={store.bulkImport}
+                onClick={() => store.bulkImport()}
                 icon={faFolderOpen}
                 tip="Bulk import projects from folder"
               />
@@ -75,11 +75,7 @@ class Home extends Component {
               />
               <A.VerticalSeparator />
               <IconWithTip onClick={store.createGroup} icon={faObjectGroup} tip="Create a group" />
-              <IconWithTip
-                onClick={store.generateDialogOpen.setTrue}
-                icon={faCogs}
-                tip="Generate an app"
-              />
+              <IconWithTip onClick={store.generateDialogOpen.setTrue} icon={faCogs} tip="Generate an app" />
             </Fragment>
           )}
         </Header>
@@ -122,6 +118,7 @@ class Home extends Component {
                   />
                 ))}
               </S.GroupList>
+              <A.Space size={10} />
             </A.Mid>
           </A.Horizontal>
         )}

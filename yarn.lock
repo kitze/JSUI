@@ -4822,6 +4822,11 @@ commander@^2.20.0:
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
   integrity sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
 
+commander@^3.0.0:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-3.0.2.tgz#6837c3fb677ad9933d1cfba42dd14d5117d6b39e"
+  integrity sha512-Gar0ASD4BDyKC4hl4DwHqDrmvjoxWKZigVnAbn5H1owvm4CxCPdb0HQDehwNYMJpla5+M2tPmPARzhtYuwpHow==
+
 commander@~2.13.0:
   version "2.13.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.13.0.tgz#6964bca67685df7c1f1430c584f07d7597885b9c"
@@ -6332,6 +6337,14 @@ entities@~1.1.1:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/entities/-/entities-1.1.2.tgz#bdfa735299664dfafd34529ed4f8522a275fea56"
   integrity sha512-f2LZMYl1Fzu7YSBKg+RoROelpOaNrcGmE9AZubeDfrCEia483oW4MI4VyFd5VNHIgQ/7qm1I0wUHK1eJnn2y2w==
+
+env-cmd@^10.0.1:
+  version "10.0.1"
+  resolved "https://registry.yarnpkg.com/env-cmd/-/env-cmd-10.0.1.tgz#bcaedad78a0172c62113890dd4efec36d2ba0775"
+  integrity sha512-vaV0BRwj+6+fd8NmcvSoRhrTxQl07fS3jxIdPYe7d+NlJj4hV/FSMmWcKau/qpbe5jeFdDI757//ToJW70ad2Q==
+  dependencies:
+    commander "^3.0.0"
+    cross-spawn "^6.0.0"
 
 env-paths@^1.0.0:
   version "1.0.0"

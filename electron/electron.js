@@ -50,7 +50,7 @@ const createWindow = () => {
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
-    backgroundColor: '#3e495e',
+    backgroundColor: '#212121',
     webPreferences: {
       devTools: isDev,
       webviewTag: true,

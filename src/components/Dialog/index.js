@@ -7,7 +7,6 @@ import emotion from '@emotion/styled';
 import { absolute, marginVertical, screenSize } from 'styles/mixins';
 import flex from 'styles/flex';
 
-import { transparentize } from 'polished';
 import { colors } from 'styles/colors';
 
 export const Wrapper = emotion.div({
@@ -23,7 +22,7 @@ export const Background = emotion.div({
   ...screenSize,
   flex: 1,
   zIndex: 0,
-  backgroundColor: transparentize(0.2, colors.purple2)
+  backgroundColor: `rgba(16, 16, 16, 0.8)`
 });
 
 export const Content = emotion.div(
@@ -39,8 +38,7 @@ export const Content = emotion.div(
       height: '100%',
       maxHeight: 700,
       maxWidth: 700,
-      backgroundColor: '#2b334c',
-      boxShadow: `0px 0px 60px 11px ${colors.purple2}`
+      backgroundColor: '#2f2f2f'
     }),
     ...(dockRight && {
       height: '100vh',

@@ -16,6 +16,8 @@
 
 ---
 
+![JSUI](https://i.imgur.com/tDHfoRV.png)
+
 # Features
 
 - Organize and group apps
@@ -34,14 +36,12 @@
 # Keyboard Shortcuts
 
 ### Project View
-`e` - open project in editor
+`e` - open project in editor  
 `r` - refresh project info, files, scripts, etc. 
 
 ### Terminal
-`ctrl + c` - kill current process
-`ctrl + r` - restart current process
-
-![JSUI](https://i.imgur.com/tDHfoRV.png)
+`ctrl + c` - kill current process  
+`ctrl + r` - restart current process  
 
 ## Organize
 

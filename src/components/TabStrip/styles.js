@@ -17,7 +17,8 @@ export const Tab = emotion.div(
     fontSize: 11,
     minWidth: 120,
     userSelect: 'none',
-    maxWidth: 200
+    maxWidth: 200,
+    backgroundColor: 'red'
   },
   ({ selected, withPadding = true } = {}) => ({
     ...(withPadding && {

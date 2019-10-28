@@ -33,7 +33,9 @@ export const Group = emotion(Vertical)(
 export const ProjectList = emotion.div(
   {
     ...flex.horizontal,
-    ...flex.wrap
+    ...flex.wrap,
+    position: 'relative',
+    zIndex: 1
   },
   ({ horizontal }) => ({
     ...(horizontal && {

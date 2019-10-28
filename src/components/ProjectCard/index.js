@@ -50,10 +50,10 @@ class Project extends Component {
 
     return (
       <S.ProjectCard horizontal={horizontal} markRed={markRed}>
-        <S.Top>
+        <S.Top onClick={project.navigate}>
           <S.Background />
           <S.TopContent>
-            <S.Name onClick={project.navigate}>{project.name}</S.Name>
+            <S.Name>{project.name}</S.Name>
           </S.TopContent>
         </S.Top>
 
@@ -90,7 +90,7 @@ class Project extends Component {
           </Horizontal>
 
           <S.IconRow alwaysShow={menuIsOpened}>
-            {!isWebBased && <S.ActionIcon tip="Edit" icon={faCode} onClick={project.edit} />}
+            {!isWebBased && <S.ActionIcon tip="Open in code editor" icon={faCode} onClick={project.edit} />}
             {!isWebBased && <S.ActionIcon tip="package.json" icon={faEye} onClick={project.previewFile} />}
             {!isWebBased && <A.ActionIcon tip="Open in Finder" icon={faFolder} onClick={project.openDir} />}
 

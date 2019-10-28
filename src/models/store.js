@@ -1,6 +1,7 @@
 import { flow, getRoot, types } from 'mobx-state-tree';
 import ipcc from 'ipcc/renderer';
 import pify from 'pify';
+
 //config
 import { PACKAGE_REGISTRY_URL } from 'config/urls';
 import { IMPORT_WORKSPACE_TYPES, PROJECT_PRIVACY, PROJECT_REPO } from 'config/enums';
@@ -34,6 +35,7 @@ const rimraf = remote.require('rimraf');
 const fs = window.require('fs');
 const fsExtra = require('fs-extra');
 const path = window.require('path');
+const childProcess = remote.require('child_process');
 
 export default types
   .model('Store', {
@@ -217,6 +219,19 @@ export default types
           }
         }
       }),
+      killAllNode: () => {
+        const proc = childProcess.spawn('killall node', [], {
+          cwd: self.path,
+          shell: true,
+          detached: true
+        });
+
+        proc.on('exit', () => {
+          self.createNotification('Done!', `All node processes have been killed`, {
+            type: 'success'
+          });
+        });
+      },
       killProcess: async () => {
         const { value: port } = await prompt('Kill port', 'Port');
         if (port) {

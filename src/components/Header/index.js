@@ -12,7 +12,7 @@ import { Horizontal } from 'styles/flex-components';
 
 //components
 import IconWithTip from 'components/IconWithTip';
-import { faAdjust, faBold, faBomb, faCog, faMagic } from '@fortawesome/fontawesome-free-solid/index';
+import { faAdjust, faBold, faSkull, faBomb, faCog, faMagic } from '@fortawesome/fontawesome-free-solid/index';
 
 @inject('store')
 @observer
@@ -41,6 +41,7 @@ class Header extends Component {
         <A.Horizontal spaceAll={15}>
           {renderRight && renderRight}
           <IconWithTip onClick={store.killProcess} icon={faBomb} tip="Kill a port" />
+          <IconWithTip onClick={store.killAllNode} icon={faSkull} tip="Kill all node processes" />
           <IconWithTip onClick={store.startCleanup} icon={faMagic} tip="Wizards" />
           <IconWithTip
             onClick={store.cssConverterDialogOpen.setTrue}

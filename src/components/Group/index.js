@@ -81,11 +81,10 @@ class Group extends Component {
           <S.ProjectList horizontal={horizontal}>
             {group.projects.map(project => (
               <ProjectCard
-
                 horizontal={horizontal}
                 showMove={store.canMoveProject}
                 project={project}
-                key={project.name}
+                key={project.id}
               />
             ))}
           </S.ProjectList>

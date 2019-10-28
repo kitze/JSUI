@@ -64,7 +64,7 @@ const Button = emotion.button(
 const buttonTypes = {
   [BUTTONS.PRIMARY]: () => ({
     styles: {
-      backgroundColor: '#8e2d4f',
+      backgroundColor: '#565d65',
       color: 'white'
     }
   }),

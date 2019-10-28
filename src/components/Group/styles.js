@@ -16,7 +16,7 @@ export const Group = emotion(Vertical)(
     ...(collapsed && {
       cursor: 'pointer',
       '&:hover': {
-        backgroundColor: '#55647d'
+        backgroundColor: whiteish(0.05)
       }
     }),
     ...(hide && {

@@ -5,13 +5,12 @@ import flex from 'styles/flex';
 
 export const Processes = emotion.div(
   {
-    boxShadow: '0px 0px 14px 2px rgb(26, 38, 62)',
     width: '100%',
     position: 'absolute',
     zIndex: 5,
     bottom: 0,
     ...flex.vertical,
-    backgroundColor: 'gray'
+    backgroundColor: '#1a1a1a'
   },
   ({ height, fullScreen }) => ({
     ...(fullScreen

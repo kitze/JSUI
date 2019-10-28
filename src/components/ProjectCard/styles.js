@@ -71,7 +71,7 @@ export const TopContent = emotion.div({
 export const DotsWrap = emotion.div({
   ...flex.horizontal,
   ...flex.centerHorizontal,
-  width: 25,
+  width: 25
 });
 
 export const Top = emotion.div({
@@ -102,6 +102,7 @@ export const ProjectCard = emotion.div(
     border: `1px solid ${whiteish(0.3)}`,
     color: 'black',
     cursor: 'pointer',
+    userSelect: 'none',
     '&:hover': {
       [IconRow]: {
         opacity: 1

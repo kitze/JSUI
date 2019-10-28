@@ -108,7 +108,6 @@ class Project extends Component {
 
             <S.ActionIcon
               icon={faTrash}
-              color="#ff9590"
               tip="Delete from JSUI"
               onClick={() => store.removeProject(project.id)}
             />

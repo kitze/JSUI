@@ -1,5 +1,5 @@
-import React, {Component, Fragment} from 'react';
-import {observer} from 'mobx-react';
+import React, { Component, Fragment } from 'react';
+import { observer } from 'mobx-react';
 //emotion
 import * as S from './styles';
 //components
@@ -10,7 +10,7 @@ import Terminal from 'components/Terminal';
 import Bar from './components/Bar';
 import ProcessTab from './components/ProcessTab';
 
-import {action, observable} from 'mobx';
+import { action, observable } from 'mobx';
 
 import keydown from 'react-keydown';
 
@@ -111,7 +111,6 @@ class Processes extends Component {
   }
 
   render() {
-
     const { processes, overrides } = this.props;
     const { activeForPage, setActive, selectedProcess } = processes;
     const { minimized, fullScreen, toggleFullScreen, toggleMinimize } = overrides || this;
@@ -153,9 +152,10 @@ class Processes extends Component {
               withPadding={false}
               title={
                 <ProcessTab
+                  tooltip={process.tooltipTitle}
                   status={process.status}
                   onStop={() => processes.closeProcess(process)}
-                  title={process.fullCommand}
+                  title={process.projectAndCommand}
                 />
               }
             >

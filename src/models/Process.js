@@ -155,7 +155,14 @@ export default types
     get title() {
       return [self.path, '>', self.fullCommand].join(' ');
     },
+    get tooltipTitle() {
+      return `Project: ${self.project.name}; ${self.fullCommand}`;
+    },
+    get projectAndCommand() {
+      return `${self.project.name} > ${self.fullCommand.replace('yarn', '')}`;
+    },
     get fullCommand() {
-      return [self.command, self.argz && self.argz.join(' ')].join(' ');
+      let command = [self.command, self.argz && self.argz.join(' ')].join(' ');
+      return command;
     }
   }));

@@ -91,8 +91,8 @@ class Project extends Component {
 
           <S.IconRow alwaysShow={menuIsOpened}>
             {!isWebBased && <S.ActionIcon tip="Open in code editor" icon={faCode} onClick={project.edit} />}
-            {!isWebBased && <S.ActionIcon tip="package.json" icon={faEye} onClick={project.previewFile} />}
-            {!isWebBased && <A.ActionIcon tip="Open in Finder" icon={faFolder} onClick={project.openDir} />}
+            {!isWebBased && <S.ActionIcon tip="Preview package.json" icon={faEye} onClick={project.previewFile} />}
+            {!isWebBased && <A.ActionIcon tip={`Open ${project.path}`} icon={faFolder} onClick={project.openDir} />}
 
             {isWebBased && (
               <S.ActionIcon tip={`Open ${project.webUrl}`} icon={faGlobe} onClick={project.openWebUrl} />
@@ -113,7 +113,7 @@ class Project extends Component {
               onClick={() => store.removeProject(project.id)}
             />
             <S.ActionIcon
-              tip="Rename"
+              tip="Rename in JSUI"
               icon={faEdit}
               onClick={() => store.renameProject(project.id, project.name)}
             />

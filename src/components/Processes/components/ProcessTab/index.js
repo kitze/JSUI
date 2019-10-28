@@ -23,13 +23,13 @@ class ProcessTab extends Component {
   };
 
   render() {
-    const { title, status } = this.props;
+    const { title, tooltip, status } = this.props;
 
     return (
       <S.ProcessTab>
         {status !== PROCESS_STATUS.NONE && <S.Status status={status} />}
         <S.Title>
-          <Tooltip title={title}>{title}</Tooltip>
+          <Tooltip title={tooltip || title}>{title}</Tooltip>
         </S.Title>
         <S.CloseCircle onClick={this.onClick}>
           <S.CloseIcon icon={faTimes} />

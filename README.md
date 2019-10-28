@@ -1,20 +1,17 @@
 ### 🙋‍♂️ Made by [@thekitze](https://twitter.com/thekitze)  
 
 ### Other projects:
+- 💻 [Sizzy](https://sizzy.co) - The browser for developers and designers
 - 🏫 [React Academy](https://reactacademy.io) - Interactive React and GraphQL workshops
 - 💌 [Twizzy](https://twizzy.app) - A standalone app for Twitter DM
-- 💻 [Sizzy](https://sizzy.co) - A tool for testing responsive design on multiple devices at once
 
 --- 
 
 # JSUI
 
-🛠 A tool for visually organizing, creating and managing JavaScript projects.  
-It doesn't matter if it's a frontend or a backend app or what framework it's using. If it has a `package.json`, it belongs here.
+🛠 A tool for visually organizing, creating and managing JavaScript projects. The framework and stack don't matter. If the project has a `package.json`, it belongs here.
 
 ## [⬇️ Download latest version](https://github.com/kitze/JSUI/releases/latest)
-
-[💸 Support on Open Collective](https://opencollective.com/jsui)  
 [🐦 Follow updates on Twitter](https://twitter.com/jsui_app)  
 
 ---
@@ -32,6 +29,17 @@ It doesn't matter if it's a frontend or a backend app or what framework it's usi
 - Manage dependencies
 - Apply plugins
 - Generate new files
+- Kill all node processes
+
+# Keyboard Shortcuts
+
+### Project View
+`e` - open project in editor
+`r` - refresh project info, files, scripts, etc. 
+
+### Terminal
+`ctrl + c` - kill current process
+`ctrl + r` - restart current process
 
 ![JSUI](https://i.imgur.com/tDHfoRV.png)
 
@@ -121,51 +129,3 @@ It doesn't matter if it's a frontend or a backend app or what framework it's usi
 - If `plopfile.js` is not present or you are not familiar with [plop](https://github.com/amwmedia/plop) run the `Plop` plugin and it will generate the needed files for you
 
 ![](https://i.imgur.com/nJQsQwE.gif)
-
-## Environment / Build Setup:
-
-Do this if you want to run the latest code from `master` locally.  
-Otherwise please download the [latest stable version here](https://github.com/kitze/JSUI/releases).
-
-```
-# clone repo
-git clone https://github.com/kitze/JSUI.git
-
-# install yarn (assuming you don't  have Yarn already installed)
-npm install -g yarn
-
-# install dependencies
-yarn install #or npm install
-
-# start app in dev mode
-yarn start
-
-# build electron packages
-yarn build
-```
-
-## Contributors
-
-Thanks to everyone who contributes to this project.
-<a href="https://github.com/kitze/jsui/graphs/contributors"><img src="https://opencollective.com/jsui/contributors.svg?width=890" /></a>
-
-## Backers
-
-Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/jsui#backer)]
-
-<a href="https://opencollective.com/jsui#backers" target="_blank"><img src="https://opencollective.com/jsui/backers.svg?width=890"></a>
-
-## Sponsors
-
-Support JSUI by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/jsui#sponsor)]
-
-<a href="https://opencollective.com/jsui/sponsor/0/website" target="_blank"><img src="https://opencollective.com/jsui/sponsor/0/avatar.svg"></a>
-<a href="https://opencollective.com/jsui/sponsor/1/website" target="_blank"><img src="https://opencollective.com/jsui/sponsor/1/avatar.svg"></a>
-<a href="https://opencollective.com/jsui/sponsor/2/website" target="_blank"><img src="https://opencollective.com/jsui/sponsor/2/avatar.svg"></a>
-<a href="https://opencollective.com/jsui/sponsor/3/website" target="_blank"><img src="https://opencollective.com/jsui/sponsor/3/avatar.svg"></a>
-<a href="https://opencollective.com/jsui/sponsor/4/website" target="_blank"><img src="https://opencollective.com/jsui/sponsor/4/avatar.svg"></a>
-<a href="https://opencollective.com/jsui/sponsor/5/website" target="_blank"><img src="https://opencollective.com/jsui/sponsor/5/avatar.svg"></a>
-<a href="https://opencollective.com/jsui/sponsor/6/website" target="_blank"><img src="https://opencollective.com/jsui/sponsor/6/avatar.svg"></a>
-<a href="https://opencollective.com/jsui/sponsor/7/website" target="_blank"><img src="https://opencollective.com/jsui/sponsor/7/avatar.svg"></a>
-<a href="https://opencollective.com/jsui/sponsor/8/website" target="_blank"><img src="https://opencollective.com/jsui/sponsor/8/avatar.svg"></a>
-<a href="https://opencollective.com/jsui/sponsor/9/website" target="_blank"><img src="https://opencollective.com/jsui/sponsor/9/avatar.svg"></a>

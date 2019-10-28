@@ -184,7 +184,8 @@
     "plop": "plop",
     "build-react-and-electron": "yarn react:build && yarn electron:copy",
     "start": "yarn electron:start",
-    "build": "yarn electron:build"
+    "build": "yarn electron:build",
+    "ship": "node scripts/ship"
   },
   "favoriteScripts": [
     "start"

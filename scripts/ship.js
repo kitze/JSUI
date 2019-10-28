@@ -101,7 +101,7 @@ shell.set('-e');
   shell.exec('yarn electron:build');
 
   console.log(chalk.cyan('\nBundling your app...'));
-  shell.exec('yarn env-cmd -f ./.env.local electron-builder --mac --linux --publish=always');
+  shell.exec('yarn env-cmd -f ./.env.local electron-builder --win --mac --linux --publish=always');
 
   console.log(chalk.cyan('\nTagging the release...'));
   shell.exec(`git tag v${newVersion}`);

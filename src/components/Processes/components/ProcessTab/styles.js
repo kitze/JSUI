@@ -36,7 +36,7 @@ export const Status = emotion.div(
   },
   ({ status }) => ({
     ...(status === PROCESS_STATUS.RUNNING && {
-      backgroundColor: 'green'
+      backgroundColor: '#85da85'
     }),
     ...(status === PROCESS_STATUS.ERROR && {
       backgroundColor: 'red'

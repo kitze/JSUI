@@ -90,14 +90,14 @@ export const getActionColors = (color, activeProp = 'active') => props => {
     ...(!disabled &&
       !active && {
         '&:hover': {
-          backgroundColor: darken(0.1, color)
+          backgroundColor: darken(0.02, color)
         },
         '&:active': {
-          backgroundColor: darken(0.2, color)
+          backgroundColor: darken(0.05, color)
         }
       }),
     ...(active && {
-      backgroundColor: darken(0.3, color)
+      backgroundColor: darken(0.1, color)
     })
   };
 };

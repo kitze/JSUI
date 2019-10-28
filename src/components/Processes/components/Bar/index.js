@@ -76,7 +76,6 @@ class Bar extends Component {
             icon={fullScreen ? faWindowMinimize : faWindowMaximize}
           />
           {running && <S.TerminalIcon spin={true} icon={faSpinner} />}
-          {title && <S.Title>{title}</S.Title>}
         </Horizontal>
 
         <S.Icons spaceAll={15}>

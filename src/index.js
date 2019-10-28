@@ -1,3 +1,4 @@
+import 'react-hot-loader';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -19,7 +20,7 @@ import routes from 'config/routes';
 import './global-css';
 
 //material-ui
-import {create} from 'jss';
+import { create } from 'jss';
 import JssProvider from 'react-jss/lib/JssProvider';
 import { createGenerateClassName, jssPreset } from '@material-ui/core/styles';
 

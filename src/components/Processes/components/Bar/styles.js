@@ -12,7 +12,7 @@ export const Bar = emotion.div(
     ...flex.centerHorizontalV,
     ...flex.spaceBetween,
     ...fixedHeight(15),
-    backgroundColor: '#192335',
+    backgroundColor: '#1a1a1a',
     userSelect: 'none'
   },
   ({ minimized, allowResize }) => ({
@@ -40,6 +40,8 @@ export const Icons = emotion.div(
 );
 
 export const TerminalIcon = emotion(IconWithTip)({
+  ...flex.vertical,
+  ...flex.centerVertical,
   ...size(20),
   color: 'white',
   cursor: 'pointer'

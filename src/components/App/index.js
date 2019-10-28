@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import ipcc from 'ipcc/renderer';
-
+import { hot } from 'react-hot-loader/root';
 //styles
 import * as S from './styles';
 
@@ -37,4 +37,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default hot(App);

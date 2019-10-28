@@ -134,7 +134,6 @@ class Processes extends Component {
           allowResize={allowResize}
           onMouseDown={allowResize && this.onMouseDown}
           running={processes.hasRunning}
-          title="Terminal"
           onClearOutput={selectedProcess.clearOutput}
           onRestart={selectedProcess.restart}
           onStop={selectedProcess.stop}

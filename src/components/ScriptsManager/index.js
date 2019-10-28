@@ -104,8 +104,6 @@ class ScriptsManager extends Component {
       ...groupedWithHooks
     };
 
-    console.log('grouped', grouped);
-
     const { groupScriptsByPrefix } = settings;
 
     const showGrouped = groupScriptsByPrefix === true && Object.keys(grouped).length >= 1;

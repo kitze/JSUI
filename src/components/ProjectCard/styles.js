@@ -70,8 +70,8 @@ export const TopContent = emotion.div({
 
 export const DotsWrap = emotion.div({
   ...flex.horizontal,
-  ...flex.justifyEnd,
-  width: 20
+  ...flex.centerHorizontal,
+  width: 25,
 });
 
 export const Top = emotion.div({

@@ -38,7 +38,8 @@ export const SmallButton = emotion.div({
 
 export const TopFlex = emotion.div({
   ...flex.vertical,
-  flex: 1
+  flex: 1,
+  overflowY: 'scroll'
 });
 
 export const Mid = emotion.div({

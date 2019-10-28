@@ -58,6 +58,7 @@ export default types
     cloningProject: types.maybeNull(types.reference(Project)),
 
     //booleans
+    cloningDialogOpened: createModel(Boolean),
     settingsOpened: createModel(Boolean),
     searchOpened: createModel(Boolean),
     importingWebUrl: createModel(Boolean),
@@ -88,35 +89,48 @@ export default types
         }
       },
       cloneProject: projectInfo => {
-        console.log('cloning', self.cloningProject, projectInfo);
-        const store = getRoot(self);
-        const newPath = path.join(store.settings.projectsPath, projectInfo.name);
-        console.log('newPath', newPath);
-        const files = fs.readdirSync(self.cloningProject.path);
-        files.forEach(file => {
-          if (!['node_modules', '.idea', '.git'].includes(file)) {
-            const fromFile = path.join(self.cloningProject.path, file);
-            const toFile = path.join(newPath, file);
-            fsExtra.copySync(fromFile, toFile);
-          }
+        const project = self.cloningProject;
+        self.cloningDialogOpened.setFalse();
+
+        toast({
+          title: `Cloning ${projectInfo.name}. This might take some time.`,
+          type: 'info'
         });
-        const newProject = Project.create({
-          name: projectInfo.name,
-          path: newPath
-        });
-        self.addNewProject(newProject);
-        Swal({
-          title: `Successfully cloned project!`,
-          type: 'success'
-        });
-        self.cloningProject = undefined;
+
+        setTimeout(() => {
+          console.log('cloning', project, projectInfo);
+          const store = getRoot(self);
+          const newPath = path.join(store.settings.projectsPath, projectInfo.name);
+          console.log('newPath', newPath);
+          const files = fs.readdirSync(project.path);
+          files.forEach(file => {
+            let restrictedFiles = ['node_modules', 'build', 'dist', '.idea', '.vscode', '.git'];
+            let isRestricted = restrictedFiles.includes(file);
+            if (!isRestricted) {
+              const fromFile = path.join(project.path, file);
+              const toFile = path.join(newPath, file);
+              fsExtra.copySync(fromFile, toFile);
+            }
+          });
+          const newProject = Project.create({
+            name: projectInfo.name,
+            path: newPath
+          });
+          self.addNewProject(newProject);
+          setTimeout(() => {
+            toast({
+              title: `Successfully cloned project!`,
+              type: 'success'
+            });
+          }, 1000);
+        }, 500);
       },
       setActiveCleanup: flow(function*(cleanup) {
         self.activeCleanup = cleanup;
         if (cleanup.id === 'remove-non-existing') {
           const newProjects = self.projects.filter(project => fs.existsSync(project.path));
           const deletedProjectsLength = self.projects.length - newProjects.length;
-          Swal({
+          toast({
             title: `Successfully removed ${deletedProjectsLength} projects!`,
             type: 'success'
           });
@@ -131,14 +145,14 @@ export default types
               self.projects.replace(newProjects);
             }
           } else {
-            Swal({
+            toast({
               title: `All projects exist on disk.`,
               type: 'success'
             });
           }
         } else if (cleanup.id === 'add-missing-projects') {
           self.bulkImport(self.settings.projectsPath);
-          Swal({
+          toast({
             title: `Imported missing projects!`,
             type: 'success'
           });
@@ -237,13 +251,13 @@ export default types
         if (port) {
           fkill(`:${port}`)
             .then(() =>
-              Swal({
+              toast({
                 title: `Port ${port} was successfully killed.`,
                 type: 'success'
               })
             )
             .catch(() =>
-              Swal({
+              toast({
                 title: 'Error',
                 text: `Couldn't kill port ${port}.`,
                 type: 'error'
@@ -449,6 +463,7 @@ export default types
       },
       setCloningProject: project => {
         self.cloningProject = project;
+        self.cloningDialogOpened.setTrue();
       },
       closeCloningDialog: () => {
         self.cloningProject = null;

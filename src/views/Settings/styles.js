@@ -18,6 +18,7 @@ export const Switch = withProps({
 export const Settings = emotion.div({
   ...flex.vertical,
   flex: 1,
+  overflow: 'hidden',
   color: 'rgba(0,0,0,0.5)'
 });
 
@@ -31,7 +32,7 @@ export const Content = emotion.div({
   ...flex.vertical,
   flex: 1,
   padding: 15,
-  overflowY: 'auto'
+  overflow: 'hidden'
 });
 
 export const Title = emotion.div({

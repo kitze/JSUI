@@ -13,11 +13,6 @@ const cleanups = [
     title: 'Add missing projects',
     description: 'Automatically adds missing projects from projects folder',
     id: 'add-missing-projects'
-  },
-  {
-    title: 'Delete unused projects',
-    description: `Removes projects that haven't been accessed in a long time`,
-    id: 'delete-unused-projects'
   }
 ];
 

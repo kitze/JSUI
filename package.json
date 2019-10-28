@@ -74,7 +74,7 @@
     "react-tippy": "^1.2.2",
     "react-virtualized": "^9.19.1",
     "recompose": "^0.27.1",
-    "rimraf": "^2.6.2",
+    "rimraf": "^3.0.0",
     "rttr": "^1.0.0",
     "styles-debugger": "^1.0.0",
     "sweetalert2": "^7.19.1",

@@ -31,6 +31,7 @@ export const Content = emotion.div(
     color: '#f0f0f0',
     zIndex: 1,
     width: '60%',
+    borderRadius: 8,
     ...marginVertical(30)
   },
   ({ autoHeight, styles, dockRight } = {}) => ({

@@ -2,12 +2,11 @@ import emotion from '@emotion/styled';
 import { whiteish } from 'styles/mixins';
 import flex from 'styles/flex';
 import { fixedHeight } from 'styles/mixins';
-import { colors } from 'styles/colors';
 
 export const PopupSelector = emotion.div({});
 
 export const Search = emotion.div({
-  backgroundColor: colors.purple1,
+  backgroundColor: '#1f1f1f',
   ...flex.vertical
 });
 
@@ -26,28 +25,28 @@ export const Item = emotion.div(
     height: 60,
     padding: commonPadding,
     cursor: 'pointer',
-    userSelect: 'none'
+    userSelect: 'none',
+    transition: 'all 70ms linear'
   },
   ({ isSelected, isHighlighted }) => ({
     ...(isHighlighted && {
-      backgroundColor: colors.purple3
+      backgroundColor: whiteish(0.1)
     })
   })
 );
 
 export const Input = emotion.input({
   ...fixedHeight(60),
-  backgroundColor: whiteish(0.2),
+  backgroundColor: whiteish(0.05),
   color: 'white',
   padding: commonPadding,
   fontSize: 15,
-  border: `1px solid ${whiteish(0.5)}`,
   outline: 'none',
+  border: 'none',
   '&::placeholder': {
     color: whiteish(0.7)
   },
   '&:focus': {
-    backgroundColor: whiteish(0.3),
-    border: `1px solid ${whiteish(0.4)}`
+    backgroundColor: whiteish(0.01)
   }
 });

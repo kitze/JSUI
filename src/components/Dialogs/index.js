@@ -132,7 +132,7 @@ class Dialogs extends Component {
           </Dialog>
         )}
 
-        {store.cloningProject && (
+        {store.cloningDialogOpened.value && (
           <Dialog key="cloning-project-dialog" onClose={store.closeCloningDialog}>
             <CloneProjectDialog
               onCancel={store.closeCloningDialog}

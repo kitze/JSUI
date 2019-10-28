@@ -3,6 +3,7 @@ import { inject, observer } from 'mobx-react';
 
 import * as S from './styles';
 import * as A from 'styles/shared-components';
+
 import { bindSettingToSwitch } from 'utils/bind-utils';
 
 const TabContainer = ({ children }) => <A.Vertical>{children}</A.Vertical>;
@@ -31,7 +32,7 @@ class Settings extends Component {
         </S.TabsWrap>*/}
 
         <S.Content>
-          <A.TopFlex styles={{ overflowY: 'scroll' }}>
+          <A.TopFlex styles={{ border: '1px solid red', overflowY: 'scroll' }}>
             <S.Title>Home</S.Title>
             <TabContainer>
               <A.Horizontal centerV>
@@ -91,11 +92,12 @@ class Settings extends Component {
                 <S.Switch {...bindSettingToSwitch(settings, 'openProjectWhenRunning')} />
                 <S.Option.Title>Open project page when running it from the main dashboard</S.Option.Title>
               </A.Horizontal>
-
             </TabContainer>
 
             <A.Space size={spaceBetweenSections} />
           </A.TopFlex>
+
+          <A.Space size={spaceBetweenSections} />
 
           <A.Horizontal justifyEnd>
             <A.Button disabled={!settings.valid} onClick={onSave}>

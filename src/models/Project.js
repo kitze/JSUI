@@ -1,12 +1,11 @@
 import { PROJECT_TAGS } from 'config/enums';
 import { types, getRoot, flow } from 'mobx-state-tree';
 import ipcc from 'ipcc/renderer';
-import { prompt, confirmDelete } from 'config/swal';
-import { toast } from 'config/swal';
+import { prompt, toast, confirmDelete } from 'config/swal';
 import axios from 'axios';
 import routes from 'config/routes';
-import pify from 'pify';
 import Swal from 'sweetalert2';
+import pify from 'pify';
 
 //icons
 import { faExternalLinkAlt } from '@fortawesome/fontawesome-free-solid';
@@ -32,14 +31,15 @@ import { createModel } from 'utils/mst-utils';
 import Boolean from 'models/Boolean';
 
 //native
+const { shell } = window.require('electron');
 const fs = window.require('fs');
 const path = window.require('path');
-const { remote, shell } = window.require('electron');
 const { spawn } = window.require('child_process');
-const parseGitConfig = remote.require('parse-git-config');
-const which = remote.require('which');
-const nodePlop = remote.require('node-plop');
-const rimraf = remote.require('rimraf');
+const parseGitConfig = window.require('parse-git-config');
+const which = window.require('which');
+const nodePlop = window.require('node-plop');
+const rimraf = window.require('rimraf');
+const rmrf = pify(rimraf);
 
 const Generator = types.model({
   name: types.string,
@@ -113,7 +113,7 @@ export default types
       },
       deleteNodeModulesFolder: async (showToast = false) => {
         let nodeModulesPath = path.join(self.path, 'node_modules');
-        const promise = pify(rimraf)(nodeModulesPath);
+        const promise = await rmrf(nodeModulesPath);
         if (showToast) {
           toast({ title: 'Successfully deleted the node_modules folder!', type: 'success' });
         }
@@ -356,12 +356,26 @@ export default types
 
         if (value === true) {
           console.log('deleting', self.path);
-          rimraf.sync(self.path);
-          store.removeProjectById(self.id);
-          yield Swal({
-            title: 'Successfully deleted project from disk!',
-            type: 'success'
+          toast({
+            title: 'Deleting project from disk, this operation might take some time.',
+            type: 'info'
           });
+          try {
+            rimraf(self.path, () => {
+              console.log('deleted from disk...');
+              store.removeProjectById(self.id);
+              toast({
+                title: 'Successfully deleted project from disk!',
+                type: 'success'
+              });
+            });
+          } catch (err) {
+            console.log('err is', err);
+            toast({
+              title: `Couldn't delete project from disk.`,
+              type: 'error'
+            });
+          }
         }
       }),
       clone: flow(function*() {
@@ -409,11 +423,11 @@ export default types
         const packageJsonPath = path.join(self.path, 'package.json');
 
         try {
-          plop = nodePlop(path.join(self.path, 'plopfile.js'));
+          let plopfilePath = path.join(self.path, 'plopfile.js');
+          plop = nodePlop(plopfilePath);
           let generators = plop.getGeneratorList();
           self.generatorList = generators.map(({ description, name }) => ({ name, description }));
         } catch (err) {
-          console.log('err', err);
           self.generatorList = [];
         }
 
@@ -430,7 +444,6 @@ export default types
           console.log('giturl', url, gitRepoURL);
           self.origin = gitRepoURL;
         } catch (err) {
-          console.error(err);
           self.type = PROJECT_TAGS.UNKNOWN;
         }
 

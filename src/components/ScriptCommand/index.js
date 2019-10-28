@@ -107,12 +107,7 @@ const regexToIconMap = [
       const commandName = matches[2] || matches[4];
       const highlighted = highlightedCommand && commandName === highlightedCommand.value;
       return (
-        <S.ScriptCommand
-          styles={{ backgroundColor: '#c93a3c' }}
-          highlighted={highlighted}
-          onMouseEnter={this.hover}
-          onMouseOut={this.unhover}
-        >
+        <S.ScriptCommand styles={{ backgroundColor: '#c93a3c' }} highlighted={highlighted}>
           <Tooltip title={command}>
             <A.Horizontal spaceAll={7} centerV>
               <S.Icon icon={faNpm} />

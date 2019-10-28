@@ -26,8 +26,6 @@ const Button = emotion.button(
       shadow
     });
 
-    const shadowOnHover = shadow === SHADOWS.ALWAYS || shadow === SHADOWS.ONLY_HOVER;
-
     return {
       border: 'none',
       ...buttonType.styles,
@@ -35,15 +33,7 @@ const Button = emotion.button(
         ...hoverAndFocus({
           ...buttonType.hover,
           backgroundColor: darkenFn(darken, buttonType.styles.backgroundColor),
-          transform: 'scale(1.02)',
-          ...(shadowOnHover && {
-            boxShadow: `0px 0px ${shadow === SHADOWS.ONLY_HOVER ? '3px 1px' : '20px 2px'} ${
-              buttonType.shadowColor
-            }`
-          })
-        }),
-        ...(shadow === SHADOWS.ALWAYS && {
-          boxShadow: `0px 0px 10px 1px ${buttonType.shadowColor}`
+          transform: 'scale(1.02)'
         }),
         '&:active': {
           transform: 'translateY(2px)'
@@ -74,24 +64,21 @@ const Button = emotion.button(
 const buttonTypes = {
   [BUTTONS.PRIMARY]: () => ({
     styles: {
-      backgroundColor: colors.purple4,
+      backgroundColor: '#8e2d4f',
       color: 'white'
-    },
-    shadowColor: '#142556'
+    }
   }),
   [BUTTONS.DEFAULT]: () => ({
     styles: {
       backgroundColor: '#ebebeb',
       color: colors.purple2
-    },
-    shadowColor: defaultShadowColor
+    }
   }),
   [BUTTONS.DANGER]: () => ({
     styles: {
       backgroundColor: colors.red,
       color: 'white'
-    },
-    shadowColor: defaultShadowColor
+    }
   })
 };
 

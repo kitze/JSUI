@@ -1,4 +1,4 @@
-import emotion from 'react-emotion';
+import emotion from '@emotion/styled';
 import PropTypes from 'prop-types';
 
 import { flex } from 'styles/flex';

@@ -13,7 +13,7 @@ import {
 
 import { TextField, SelectClasses, InputLabelClasses, LabelClasses } from 'styles/material-ui-overrides';
 import * as A from 'styles/shared-components';
-import { css } from 'react-emotion';
+import { css } from 'emotion';
 
 const classes = {
   root: css({
@@ -40,7 +40,9 @@ export const SelectAdapter = ({ input: { onChange, value }, option }) => (
   <A.Vertical>
     <InputLabel classes={InputLabelClasses}>{option.name}</InputLabel>
     <Select classes={SelectClasses} value={value} onChange={onChange}>
-      {option.options.map(option => <MenuItem value={option.value}>{option.label}</MenuItem>)}
+      {option.options.map(option => (
+        <MenuItem value={option.value}>{option.label}</MenuItem>
+      ))}
     </Select>
   </A.Vertical>
 );

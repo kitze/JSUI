@@ -1,7 +1,7 @@
 import flex from 'styles/flex';
 import { fixedHeight, size } from 'styles/mixins';
 import { common } from 'styles/flex-components';
-import emotion from 'react-emotion';
+import emotion from '@emotion/styled';
 import IconWithTip from 'components/IconWithTip';
 
 export const Bar = emotion.div(

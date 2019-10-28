@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import styled from 'react-emotion';
+import styled from '@emotion/styled';
 import { marginVertical } from 'styles/mixins';
 
 export const File = styled.div(

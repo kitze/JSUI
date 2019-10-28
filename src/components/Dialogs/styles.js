@@ -1,4 +1,4 @@
-import emotion from 'react-emotion';
+import emotion from '@emotion/styled';
 import { UnControlled as CodeMirror } from 'react-codemirror2';
 
 import flex from 'styles/flex';

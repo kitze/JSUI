@@ -1,5 +1,5 @@
 import flex from 'styles/flex';
-import emotion from 'react-emotion';
+import emotion from '@emotion/styled';
 import Scroll from 'react-scrollbars-custom';
 
 export const Home = emotion.div({

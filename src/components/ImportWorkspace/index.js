@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { FormControl, RadioGroup, FormControlLabel, Radio } from '@material-ui/core';
-import { css } from 'react-emotion';
+import { css } from 'emotion';
 import { TextField } from 'styles/material-ui-overrides';
 
 //styles
@@ -42,7 +42,11 @@ class ImportWorkspace extends Component {
           <S.Description> You're about to import the following projects: </S.Description>
           <A.Space />
 
-          <S.Folders>{folderNames.map(folder => <S.Folder> {folder} </S.Folder>)}</S.Folders>
+          <S.Folders>
+            {folderNames.map(folder => (
+              <S.Folder> {folder} </S.Folder>
+            ))}
+          </S.Folders>
 
           <FormControl component="fieldset" required>
             <RadioGroup value={this.state.type} onChange={this.handleTypeChange}>

@@ -1,6 +1,6 @@
 import React from 'react';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import emotion from 'react-emotion';
+import emotion from '@emotion/styled';
 import { Tooltip } from 'react-tippy';
 import { faQuestion } from '@fortawesome/fontawesome-free-solid';
 import flex from 'styles/flex';

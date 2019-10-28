@@ -239,6 +239,9 @@ export default types
       addProjectToGroup: project => {
         self.addingProjectToGroup = project;
       },
+      importConfig: () => {
+        ipcc.callMain('import-config');
+      },
       bulkImport: flow(function*(folder) {
         const ignored = ['node_modules'];
         let folderName = folder;

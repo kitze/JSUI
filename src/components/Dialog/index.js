@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { observer } from 'mobx-react';
 import keydown from 'react-keydown';
 
-import emotion from 'react-emotion';
+import emotion from '@emotion/styled';
 import { absolute, marginVertical, screenSize } from 'styles/mixins';
 import flex from 'styles/flex';
 

@@ -1,4 +1,4 @@
-import emotion from 'react-emotion';
+import emotion from '@emotion/styled';
 import flex from 'styles/flex';
 import { whiteish } from 'styles/mixins';
 import { Button as $Button } from 'styles/shared-components';

@@ -1,4 +1,5 @@
-import emotion, { css } from 'react-emotion';
+import emotion from '@emotion/styled';
+import { css } from 'emotion';
 
 import { Switch as $Switch } from '@material-ui/core';
 import withProps from 'recompose/withProps';

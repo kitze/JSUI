@@ -75,7 +75,11 @@ class Home extends Component {
               />
               <A.VerticalSeparator />
               <IconWithTip onClick={store.createGroup} icon={faObjectGroup} tip="Create a group" />
-              <IconWithTip onClick={store.generateDialogOpen.setTrue} icon={faCogs} tip="Generate an app" />
+              <IconWithTip
+                onClick={store.generateDialogOpen.setTrue}
+                icon={faCogs}
+                tip="Generate an app"
+              />
             </Fragment>
           )}
         </Header>
@@ -84,6 +88,7 @@ class Home extends Component {
           <S.Empty>
             <S.Title>You don't have any projects. Add your first one?</S.Title>
             <A.Horizontal spaceAll={15}>
+              <A.Button onClick={store.importConfig}> Import config </A.Button>
               <A.Button onClick={store.openFolder}> Import a project </A.Button>
               <A.Button onClick={store.generateDialogOpen.setTrue}> Generate a project </A.Button>
             </A.Horizontal>

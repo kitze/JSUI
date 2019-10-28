@@ -1,4 +1,4 @@
-import styled from 'react-emotion';
+import styled from '@emotion/styled';
 import flex from 'styles/flex';
 
 export const ProjectTree = styled.div({

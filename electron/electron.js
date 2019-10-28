@@ -64,6 +64,7 @@ const onOpenDialog = async options => {
 
 const setupListeners = () => {
   ipc.answerRenderer('open-dialog', onOpenDialog);
+  ipc.answerRenderer('import-config', importConfig);
 
   ipc.answerRenderer('apply-plugin-actions', applyPlugin);
 

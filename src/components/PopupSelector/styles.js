@@ -1,4 +1,4 @@
-import emotion from 'react-emotion';
+import emotion from '@emotion/styled';
 import { whiteish } from 'styles/mixins';
 import flex from 'styles/flex';
 import { fixedHeight } from 'styles/mixins';

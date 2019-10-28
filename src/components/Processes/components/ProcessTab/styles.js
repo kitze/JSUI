@@ -1,4 +1,4 @@
-import emotion from 'react-emotion';
+import emotion from '@emotion/styled';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { getActionColors, fixedHeight, fixedSize, marginHorizontal } from 'styles/mixins';
 import { PROCESS_STATUS } from 'config/enums';

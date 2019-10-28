@@ -19,7 +19,7 @@ export const PROJECT_REPO = {
   GITHUB: 'GitHub',
   BITBUCKET: 'Bitbucket',
   GITLAB: 'GitLab',
-  NO_REPO: 'No repo'
+  NO_REPO: 'None'
 };
 
 export const PROJECT_PRIVACY = {

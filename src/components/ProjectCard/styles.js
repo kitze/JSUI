@@ -1,4 +1,4 @@
-import emotion from 'react-emotion';
+import emotion from '@emotion/styled';
 import flex from 'styles/flex';
 import { fixedHeight, fixedWidth, size, whiteish } from 'styles/mixins';
 import { sample } from 'lodash';

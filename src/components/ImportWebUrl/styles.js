@@ -1,4 +1,4 @@
-import emotion from 'react-emotion';
+import emotion from '@emotion/styled';
 
 export const Folder = emotion.li({
   marginBottom: 5

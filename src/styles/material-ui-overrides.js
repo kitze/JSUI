@@ -1,6 +1,6 @@
 import { css } from 'emotion';
 import withProps from 'recompose/withProps';
-import emotion from 'react-emotion';
+import emotion from '@emotion/styled';
 import { Input as $Input, TextField as $TextField } from '@material-ui/core';
 import { whiteish } from 'styles/mixins';
 

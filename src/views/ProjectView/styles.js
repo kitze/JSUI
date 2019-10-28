@@ -1,5 +1,5 @@
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import emotion from 'react-emotion';
+import emotion from '@emotion/styled';
 import flex from 'styles/flex';
 import { hoverable, whiteish } from 'styles/mixins';
 import * as A from 'styles/shared-components';

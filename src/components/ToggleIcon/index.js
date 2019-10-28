@@ -1,5 +1,5 @@
 import React from 'react';
-import emotion from 'react-emotion';
+import emotion from '@emotion/styled';
 import { Tooltip } from 'react-tippy';
 
 import ConditionalWrap from 'conditional-wrap';

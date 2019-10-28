@@ -1,5 +1,5 @@
-const fs = window.require('electron').remote.require('fs');
-const path = window.require('electron').remote.require('path');
+const fs = window.require('fs');
+const path = window.require('path');
 
 const ignoredFiles = [
   'instruction.md',
@@ -51,4 +51,4 @@ const traverse = dir => {
   }, []);
 };
 
-module.exports = traverse;
+export default traverse;

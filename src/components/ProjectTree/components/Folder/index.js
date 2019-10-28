@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { observer } from 'mobx-react';
 import { observable, action } from 'mobx';
 
-import { marginVertical } from 'styles/mixins';
+import { marginVertical, whiteish } from 'styles/mixins';
 
 //components
 import Contents from '../Contents';
@@ -12,7 +12,11 @@ import flex from 'styles/flex';
 //styles
 export const Folder = styled.div({
   userSelect: 'none',
-  ...marginVertical(5)
+  padding: 5,
+  ...marginVertical(5),
+  '&:hover': {
+    backgroundColor: whiteish(0.05)
+  }
 });
 
 export const Title = styled.div({
@@ -21,10 +25,7 @@ export const Title = styled.div({
   cursor: 'pointer',
   color: '#d6d6d6',
   ...flex.horizontal,
-  ...flex.centerHorizontalV,
-  '&:hover': {
-    backgroundColor: '#182328'
-  }
+  ...flex.centerHorizontalV
 });
 
 export const Indicator = styled.span(

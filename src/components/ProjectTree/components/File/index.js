@@ -1,24 +1,23 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import styled from '@emotion/styled';
-import { marginVertical } from 'styles/mixins';
+import { marginVertical, whiteish } from 'styles/mixins';
 
 export const File = styled.div(
   {
     ...marginVertical(10),
-    paddingLeft: 5,
-    paddingRight: 5,
+    padding: 5,
     transition: 'all 100ms linear',
     cursor: 'pointer',
     color: '#d6d6d6',
     '&:hover': {
-      backgroundColor: '#182328'
+      backgroundColor: whiteish(0.05)
     }
   },
   ({ isSelected }) => ({
     ...(isSelected && {
       color: 'white',
-      backgroundColor: '#182328'
+      backgroundColor: whiteish(0.1)
     })
   })
 );

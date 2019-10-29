@@ -38,6 +38,7 @@ import GitBranch from 'components/GitBranch';
 
 //external components
 import { Tooltip } from 'react-tippy';
+import Scroll from 'react-scrollbars-custom';
 
 //local components
 import FileEntry from './components/FileEntry';
@@ -186,55 +187,57 @@ class ProjectView extends Component {
                 <IconWithTip tip="Edit code" icon={faCode} onClick={project.edit} />
               </A.Horizontal>
             </S.InfoStrip>
-            <S.Mid hasProcesses={false}>
-              <S.Right>
-                {project.ready && (
-                  <React.Fragment>
-                    {hasScripts && <ScriptsManager packageJson={project.packageJson} />}
+            <S.Mid withPadding={false}>
+              <Scroll style={{flex: 1}}>
+                <S.Right>
+                  {project.ready && (
+                    <React.Fragment>
+                      {hasScripts && <ScriptsManager packageJson={project.packageJson} />}
 
-                    {/* Dependencies */}
-                    <Horizontal spaceAll={10} flex={1}>
-                      {/* Dependencies list */}
-                      <Vertical flex={1}>
-                        <Horizontal centerV css={{ minHeight: 30 }} wrap spaceAll={spaceAll}>
-                          <S.Section.Title> Dependencies </S.Section.Title>
-                          <Tooltip title="Add a dependency">
-                            <A.SmallButton onClick={() => this.dependenciesDialogOpen.setValue('open')}>
-                              add
-                            </A.SmallButton>
-                          </Tooltip>
-                        </Horizontal>
-                        {get(project, 'packageJson.dependencies') && (
-                          <DependenciesList
-                            {...dependenciesListProps}
-                            list={project.packageJson.dependencies}
-                          />
-                        )}
-                      </Vertical>
+                      {/* Dependencies */}
+                      <Horizontal spaceAll={10} flex={1}>
+                        {/* Dependencies list */}
+                        <Vertical flex={1}>
+                          <Horizontal centerV css={{ minHeight: 30 }} wrap spaceAll={spaceAll}>
+                            <S.Section.Title> Dependencies </S.Section.Title>
+                            <Tooltip title="Add a dependency">
+                              <A.SmallButton onClick={() => this.dependenciesDialogOpen.setValue('open')}>
+                                add
+                              </A.SmallButton>
+                            </Tooltip>
+                          </Horizontal>
+                          {get(project, 'packageJson.dependencies') && (
+                            <DependenciesList
+                              {...dependenciesListProps}
+                              list={project.packageJson.dependencies}
+                            />
+                          )}
+                        </Vertical>
 
-                      {/* Dev dependencies list */}
+                        {/* Dev dependencies list */}
 
-                      <Vertical flex={1}>
-                        <Horizontal centerV css={{ minHeight: 30 }} wrap spaceAll={spaceAll}>
-                          <S.Section.Title> Dev dependencies </S.Section.Title>
-                          <Tooltip title="Add a dev dependency">
-                            <A.SmallButton onClick={() => this.dependenciesDialogOpen.setValue('dev')}>
-                              add
-                            </A.SmallButton>
-                          </Tooltip>
-                        </Horizontal>
-                        {get(project, 'packageJson.devDependencies') && (
-                          <DependenciesList
-                            {...dependenciesListProps}
-                            isDev={true}
-                            list={project.packageJson.devDependencies}
-                          />
-                        )}
-                      </Vertical>
-                    </Horizontal>
-                  </React.Fragment>
-                )}
-              </S.Right>
+                        <Vertical flex={1}>
+                          <Horizontal centerV css={{ minHeight: 30 }} wrap spaceAll={spaceAll}>
+                            <S.Section.Title> Dev dependencies </S.Section.Title>
+                            <Tooltip title="Add a dev dependency">
+                              <A.SmallButton onClick={() => this.dependenciesDialogOpen.setValue('dev')}>
+                                add
+                              </A.SmallButton>
+                            </Tooltip>
+                          </Horizontal>
+                          {get(project, 'packageJson.devDependencies') && (
+                            <DependenciesList
+                              {...dependenciesListProps}
+                              isDev={true}
+                              list={project.packageJson.devDependencies}
+                            />
+                          )}
+                        </Vertical>
+                      </Horizontal>
+                    </React.Fragment>
+                  )}
+                </S.Right>
+              </Scroll>
             </S.Mid>
           </A.Vertical>
 

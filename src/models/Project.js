@@ -76,7 +76,11 @@ export default types
         const editorExists = await ipcc.callMain('command-exists', store.settings.editor);
         if (editorExists) {
           const editor = which.sync(store.settings.editor);
-          spawn(editor, ['.'], { cwd: self.path });
+          try {
+            spawn(editor, ['.'], { cwd: self.path });
+          } catch (err) {
+            alert(`Cannot open editor: ${err.toString()}`);
+          }
         } else {
           toast({
             type: 'error',

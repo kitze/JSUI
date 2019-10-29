@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
+import Scroll from 'react-scrollbars-custom';
 
 //styles
 import * as S from './styles';
@@ -14,7 +15,9 @@ class ProjectTree extends Component {
     const { contents, selectedFilePath, store } = this.props;
     return (
       <S.ProjectTree>
-        <Contents onSelect={store.setOpenedFile} selectedFilePath={selectedFilePath} contents={contents} />
+        <Scroll style={{flex: 1}}>
+          <Contents onSelect={store.setOpenedFile} selectedFilePath={selectedFilePath} contents={contents} />
+        </Scroll>
       </S.ProjectTree>
     );
   }

@@ -1,12 +1,11 @@
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import emotion from '@emotion/styled';
 import flex from 'styles/flex';
-import { hoverable, whiteish } from 'styles/mixins';
 import * as A from 'styles/shared-components';
 
-export const Mid = emotion(A.Mid)(({ hasProcesses }) => ({
+export const Mid = emotion(A.Mid)(({ withPadding }) => ({
   ...flex.vertical,
-  ...(hasProcesses && {
+  ...(withPadding && {
     paddingBottom: 1000
   })
 }));

@@ -90,7 +90,9 @@ class Settings extends Component {
 
               <A.Horizontal centerV>
                 <S.Switch {...bindSettingToSwitch(settings, 'openProjectWhenRunning')} />
-                <S.Option.Title>Open project page when running it from the main dashboard</S.Option.Title>
+                <S.Option.Title>
+                  Open the project view after running a project from the main dashboard
+                </S.Option.Title>
               </A.Horizontal>
             </TabContainer>
 

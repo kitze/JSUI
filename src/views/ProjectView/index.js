@@ -183,12 +183,12 @@ class ProjectView extends Component {
 
                 <A.VerticalSeparator />
 
-                <IconWithTip tip="Open in Finder" icon={faFolder} onClick={project.openDir} />
+                <IconWithTip tip={`Open ${project.path}`} icon={faFolder} onClick={project.openDir} />
                 <IconWithTip tip="Edit code" icon={faCode} onClick={project.edit} />
               </A.Horizontal>
             </S.InfoStrip>
             <S.Mid withPadding={false}>
-              <Scroll style={{flex: 1}}>
+              <Scroll style={{ flex: 1 }}>
                 <S.Right>
                   {project.ready && (
                     <React.Fragment>

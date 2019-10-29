@@ -77,7 +77,7 @@ export default types
         if (editorExists) {
           const editor = which.sync(store.settings.editor);
           try {
-            spawn(editor, ['.'], { cwd: self.path });
+            spawn(editor, ['.'], { cwd: self.path, shell: true, detached: true });
           } catch (err) {
             alert(`Cannot open editor: ${err.toString()}`);
           }

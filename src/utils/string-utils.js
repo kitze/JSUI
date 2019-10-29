@@ -1,3 +1,5 @@
+import replaceAll from 'replaceall';
+
 export const isEmptyString = s => !(s && s.trim() !== '');
 export const isValidString = s => !isEmptyString(s);
 
@@ -30,3 +32,13 @@ export const getLastFromString = (str = '', separator, returnPrevIfLastEmpty) =>
 
   return last || '';
 };
+
+export const cleanString = (str = '') => {
+  let s = str.toLowerCase();
+  ['-', '_', '.'].forEach(char => {
+    s = replaceAll(char, '', s);
+  });
+  return s;
+};
+
+export const compareFuzzy = (a, b) => a.includes(b) || cleanString(a).includes(b);

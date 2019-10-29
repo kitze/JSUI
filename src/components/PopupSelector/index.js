@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-
-import { observable, computed, action } from 'mobx';
+import { orderBy } from 'lodash';
+import { action, computed, observable } from 'mobx';
 import { observer } from 'mobx-react';
+import { compareFuzzy } from 'utils/string-utils';
 
 import * as S from './styles';
 import Dialog from 'components/Dialog';
 import keydown, { Keys } from 'react-keydown';
 import { cycleValueAround } from 'utils';
-import { includesLowercase } from 'utils/string-utils';
 
 @observer
 class PopupSelector extends Component {
@@ -19,7 +19,9 @@ class PopupSelector extends Component {
 
   @computed
   get foundItems() {
-    return this.props.items.filter(item => includesLowercase(item.name, this.search));
+    let filteredItems = this.props.items.filter(item => compareFuzzy(item.name, this.search));
+    let orderedItems = orderBy(filteredItems, [i => i.name === this.search], ['desc']);
+    return orderedItems;
   }
 
   @action
@@ -111,13 +113,13 @@ class PopupSelector extends Component {
             {showSearch && (
               <S.Input
                 onChange={this.onChange}
-                innerRef={this.inputRef}
+                ref={this.inputRef}
                 onKeyDown={this.onkeyDown}
                 autoFocus
                 placeholder="Search..."
               />
             )}
-            <S.Items innerRef={this.itemsRef}>
+            <S.Items ref={this.itemsRef}>
               {items.map(item => (
                 <S.Item
                   id={`item-${item.id}`}

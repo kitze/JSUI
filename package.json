@@ -74,6 +74,7 @@
     "react-tippy": "^1.2.2",
     "react-virtualized": "^9.19.1",
     "recompose": "^0.27.1",
+    "replaceall": "^0.1.6",
     "rimraf": "^3.0.0",
     "rttr": "^1.0.0",
     "styles-debugger": "^1.0.0",
@@ -125,7 +126,6 @@
   "build": {
     "productName": "JSUI",
     "appId": "com.kitze.jsui",
-    "afterSign": "./scripts/after-sign.js",
     "extends": null,
     "files": [
       "build/**/*"

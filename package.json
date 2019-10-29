@@ -126,6 +126,7 @@
   "build": {
     "productName": "JSUI",
     "appId": "com.kitze.jsui",
+    "afterSign": "./scripts/after-sign.js",
     "extends": null,
     "files": [
       "build/**/*"

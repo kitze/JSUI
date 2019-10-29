@@ -7,7 +7,7 @@
   },
   "description": "A powerful UI toolkit for managing JavaScript apps",
   "repository": "https://github.com/kitze/jsui",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "license": "MIT",
   "private": false,
   "dependencies": {

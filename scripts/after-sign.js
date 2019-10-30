@@ -2,13 +2,13 @@ require('dotenv').config({ path: './.env.local' });
 const fs = require('fs');
 const path = require('path');
 const { notarize } = require('electron-notarize');
-const { APPLE_ID, APPLE_ID_PASS } = process.env;
+const { APPLE_ID, SKIP_SIGN, APPLE_ID_PASS } = process.env;
 
 module.exports = async function(params) {
   const { electronPlatformName, appOutDir } = params;
 
   // Only notarize the app on Mac OS only.
-  if (electronPlatformName !== 'darwin') {
+  if (electronPlatformName !== 'darwin' || SKIP_SIGN === 'true') {
     return;
   }
 

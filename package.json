@@ -131,6 +131,7 @@
     "files": [
       "build/**/*"
     ],
+    "asar": false,
     "mac": {
       "icon": "icons/icon.icns"
     },
@@ -179,6 +180,7 @@
     "react:eject": "react-scripts eject",
     "electron:copy": "cp -r ./electron/. ./build",
     "electron:build": "yarn clean && yarn build-react-and-electron && yarn electron-builder",
+    "local": "yarn clean && yarn build-react-and-electron && cross-env SKIP_SIGN=true yarn electron-builder",
     "electron:start": "concurrently \"cross-env BROWSER=none yarn react:start\" \"wait-on http://localhost:3000 && electron electron/electron.js\"",
     "electron:release": "yarn build-react-and-electron && electron-builder --publish=always",
     "storybook": "cross-env STORYBOOK_MODE=dev start-storybook -p 9001 -c .storybook",

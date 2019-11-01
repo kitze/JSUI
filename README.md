@@ -3,7 +3,7 @@
 ### Other projects:
 - 💻 [Sizzy](https://sizzy.co) - The browser for developers and designers
 - 🏫 [React Academy](https://reactacademy.io) - Interactive React and GraphQL workshops
-- 💌 [Twizzy](https://twizzy.app) - A standalone app for Twitter DM
+- 💌 [Twizzle](https://twizzle.app) - A standalone app for Twitter DM & tweeting
 
 --- 
 
@@ -16,7 +16,7 @@
 
 ---
 
-![JSUI](https://i.imgur.com/tDHfoRV.png)
+![JSUI](https://i.imgur.com/8VTH3Gv.png)
 
 # Features
 

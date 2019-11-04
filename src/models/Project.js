@@ -34,7 +34,8 @@ import Boolean from 'models/Boolean';
 const { shell } = window.require('electron');
 const fs = window.require('fs');
 const path = window.require('path');
-const { spawn } = window.require('child_process');
+const spawn = window.require('cross-spawn');
+const { sync: commandExists } = window.require('command-exists');
 const parseGitConfig = window.require('parse-git-config');
 const which = window.require('which');
 const nodePlop = window.require('node-plop');
@@ -73,19 +74,21 @@ export default types
     return {
       edit: async () => {
         const store = getRoot(self);
-        const editorExists = await ipcc.callMain('command-exists', store.settings.editor);
-        if (editorExists) {
-          const editor = which.sync(store.settings.editor);
-          try {
-            spawn(editor, ['.'], { cwd: self.path, shell: true, detached: true });
-          } catch (err) {
-            alert(`Cannot open editor: ${err.toString()}`);
+        try {
+          const editorExists = commandExists(store.settings.editor);
+          if (editorExists) {
+            const editor = which.sync(store.settings.editor);
+            spawn(editor, [self.path]);
+          } else {
+            toast({
+              type: 'error',
+              title: `The cli "${
+                store.settings.editor
+              }" couldn't be found. Please make sure it's installed, or provide the full path to it.`
+            });
           }
-        } else {
-          toast({
-            type: 'error',
-            title: `The cli "${store.settings.editor}" couldn't be found. Please make sure it's installed.`
-          });
+        } catch (err) {
+          alert(`Cannot open editor: ${err.toString()}. Try to provide the full path to it.`);
         }
       },
       setName: name => {

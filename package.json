@@ -26,6 +26,7 @@
     "command-exists": "^1.2.6",
     "conditional-wrap": "^1.0.0",
     "cross-env": "5.1.4",
+    "cross-spawn": "^7.0.1",
     "customize-cra": "^0.8.0",
     "date-fns": "^1.29.0",
     "dotenv": "^8.2.0",
@@ -131,7 +132,6 @@
     "files": [
       "build/**/*"
     ],
-    "asar": false,
     "mac": {
       "icon": "icons/icon.icns"
     },

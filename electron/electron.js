@@ -66,9 +66,8 @@ const createWindow = () => {
 };
 
 const onOpenDialog = async options => {
-  const dialogAsync = pify(dialog.showOpenDialog(mainWindow, options || { properties: ['openDirectory'] }));
-  const chosenFolders = await dialogAsync;
-  return chosenFolders[0];
+  const chosenFolders = await dialog.showOpenDialog(mainWindow, options || { properties: ['openDirectory'] });
+  return chosenFolders.filePaths[0];
 };
 
 const setupListeners = () => {

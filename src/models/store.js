@@ -391,17 +391,23 @@ export default types
         self.importingWorkspace = null;
       },
       openFolder: flow(function*(groupId) {
-        const folderName = yield ipcc.callMain('open-dialog');
-        const splitted = folderName.split('/');
-        const group = groupId && typeof groupId !== 'object' && self.groups.find(g => g.id === groupId);
+        try {
+          const folderName = yield ipcc.callMain('open-dialog');
 
-        let createdProject = Project.create({
-          name: splitted[splitted.length - 1],
-          path: folderName,
-          ...(group ? { group } : {})
-        });
+          const splitted = folderName.split('/');
+          const group = groupId && typeof groupId !== 'object' && self.groups.find(g => g.id === groupId);
 
-        self.addNewProject(createdProject);
+          let createdProject = Project.create({
+            name: splitted[splitted.length - 1],
+            path: folderName,
+            ...(group ? { group } : {})
+          });
+
+          self.addNewProject(createdProject);
+        } catch (err) {
+          console.error(err);
+          alert(`Couldn't add project. Error: ${err.toString()}`);
+        }
       }),
       createGroup: flow(function*() {
         const { value: name } = yield prompt('Group title');

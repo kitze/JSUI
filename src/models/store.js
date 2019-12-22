@@ -137,7 +137,7 @@ export default types
 
           if (deletedProjectsLength > 0) {
             const { value } = yield Swal({
-              title: `Are you sure you want you want to remove ${deletedProjectsLength}?`,
+              title: `Are you sure you want you want to remove ${deletedProjectsLength} projects?`,
               type: 'warning',
               showCancelButton: true
             });
@@ -231,6 +231,50 @@ export default types
               type: 'success'
             });
           }
+        }
+      }),
+      copyEnvFiles: flow(function*() {
+        const exportPath = yield ipcc.callMain('open-dialog');
+        if (exportPath) {
+          self.projects.forEach(project => {
+            project.readContents(true);
+            project.allItems.forEach(item => {
+              if (item.name.includes('.env') || item.name.includes('public-key')) {
+                try {
+                  let from = item.path;
+                  let to = path.join(exportPath, project.name, item.name);
+                  fsExtra.copySync(from, to);
+                } catch (err) {
+                  console.error(err);
+                }
+              }
+            });
+          });
+          toast({ title: `Exported all .env files to ${exportPath}` });
+        }
+      }),
+      importEnvFiles: flow(function*() {
+        const importPath = yield ipcc.callMain('open-dialog');
+        if (importPath) {
+          let entries = fs.readdirSync(importPath);
+
+          entries.filter(entry => {
+            let folderPath = path.join(importPath, entry);
+            let isFolder = fs.lstatSync(folderPath).isDirectory();
+            if (isFolder) {
+              const envFiles = fs.readdirSync(folderPath);
+              envFiles.forEach(file => {
+                const foundProject = self.projects.find(p => p.name === entry);
+                if (foundProject) {
+                  const filePath = path.join(folderPath, file);
+                  const to = path.join(foundProject.path, file);
+                  fsExtra.copySync(filePath, to);
+                }
+              });
+            }
+          });
+
+          toast({ title: `Imported all .env files to ${importPath}` });
         }
       }),
       killAllNode: () => {

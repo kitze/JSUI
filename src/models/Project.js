@@ -403,9 +403,9 @@ export default types
       closeFile: () => {
         self.openedFile = null;
       },
-      readContents: () => {
+      readContents: (force) => {
         const store = getRoot(self);
-        if (store.settings.indexFiles === true) {
+        if (store.settings.indexFiles === true || force) {
           try {
             self.contents = getFoldersAsObjects(self.path);
             self.allItems = getAllItems(self.path).map(i => ({

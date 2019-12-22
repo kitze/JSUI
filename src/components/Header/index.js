@@ -12,7 +12,16 @@ import { Horizontal } from 'styles/flex-components';
 
 //components
 import IconWithTip from 'components/IconWithTip';
-import { faAdjust, faBold, faSkull, faBomb, faCog, faMagic } from '@fortawesome/fontawesome-free-solid/index';
+import {
+  faAdjust,
+  faBold,
+  faSkull,
+  faBomb,
+  faCog,
+  faMagic,
+  faUpload,
+  faDownload
+} from '@fortawesome/fontawesome-free-solid/index';
 
 @inject('store')
 @observer
@@ -42,6 +51,8 @@ class Header extends Component {
           {renderRight && renderRight}
           <IconWithTip onClick={store.killProcess} icon={faBomb} tip="Kill a port" />
           <IconWithTip onClick={store.killAllNode} icon={faSkull} tip="Kill all node processes" />
+          <IconWithTip onClick={store.copyEnvFiles} icon={faUpload} tip="Export .env files to folder" />
+          <IconWithTip onClick={store.importEnvFiles} icon={faDownload} tip="Import .env files from folder" />
           <IconWithTip onClick={store.startCleanup} icon={faMagic} tip="Wizards" />
           <IconWithTip
             onClick={store.cssConverterDialogOpen.setTrue}

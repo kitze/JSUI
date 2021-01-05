@@ -20,7 +20,7 @@
     "@fortawesome/react-fontawesome": "^0.0.18",
     "@material-ui/core": "^1.2.0",
     "@material-ui/icons": "^1.1.0",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "clipboardy": "^1.2.3",
     "codemirror": "^5.37.0",
     "command-exists": "^1.2.6",

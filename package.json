@@ -104,7 +104,7 @@
     "concurrently": "3.5.1",
     "current-git-branch": "^1.1.0",
     "customize-cra-eslint-ignore": "^0.1.2",
-    "electron": "^7.0.0",
+    "electron": "^9.4.0",
     "electron-builder": "^21.2.0",
     "env-cmd": "^10.0.1",
     "faker": "^4.1.0",
